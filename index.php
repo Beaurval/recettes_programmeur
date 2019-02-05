@@ -1,7 +1,5 @@
 <?php
 
-hello world
-
 /**
  * Created by PhpStorm.
  * User: Valentin Beaury
