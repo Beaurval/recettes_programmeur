@@ -26,3 +26,21 @@ body{
 article > h2{
     text-align: center;
 }
+body{
+    box-sizing: border-box;
+}
+.centerded{
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+@media screen and (min-width: 1024px) {
+    .myNewDivHeight{
+        height:150px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .cardHeight{
+        height:325px;
+    }
+}
