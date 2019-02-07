@@ -12,13 +12,14 @@ class Recette
     private $titre;
     private $description;
 
-    public function __construct($titre = 'Insérez le titre de votre recette',$description = 'Votre description',$difficulte = 1,$path = '...')
+    public function __construct($titre = 'Insérez le titre de votre recette', $description = 'Votre description', $difficulte = 1, $path = '...')
     {
         $this->difficulte = $difficulte;
         $this->titre = $titre;
         $this->description = $description;
         $this->path = $path;
     }
+
     /**
      * @return int
      */
@@ -82,16 +83,18 @@ class Recette
     {
         $this->path = $path;
     }
+
     private $path;
 
     public function toHtml()
     {
         $etoiles = '';
-        for($i = 0; $i < $this->difficulte; $i++)
+        for ($i = 0; $i < $this->difficulte; $i++)
             $etoiles .= "<i class=\"fas fa-star text-custom\"></i>";
         return
-        "
-        <div class=\" col-xl-4 col-md-6 col-sm-12 mb-4\">
+            "
+        <div class=\"zoom col-xl-4 col-md-6 col-sm-12 mb-4\">
+             <a class='text-normal' href='#'>
                 <div class=\"cardHeight card\">
                     <img src=\"$this->path\" class=\"myNewDivHeight card-img-top\" alt=\"...\">
                     <div class=\"card-body\">
@@ -103,7 +106,8 @@ class Recette
                         </div>
                     </div>
                 </div>
-            </div>
+             </a>
+        </div>
         ";
     }
 

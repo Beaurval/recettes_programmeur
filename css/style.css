@@ -7,6 +7,18 @@
 .text-custom{
     color: #9ace02;
 }
+.text-custom:hover {
+    text-decoration: none;
+    color: #9ace02;
+}
+
+.text-normal{
+    color: #333134;
+}
+.text-normal:hover {
+    text-decoration: none;
+    color: #333134;
+}
 
 body{
     background-color: #a5a6a5;
@@ -43,4 +55,10 @@ body{
     .cardHeight{
         height:325px;
     }
+}
+.zoom{
+    transition: transform .2s;
+}
+.zoom:hover{
+    transform: scale(1.05);
 }
