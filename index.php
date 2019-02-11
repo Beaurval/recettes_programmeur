@@ -13,6 +13,7 @@
 <body>
 <div class="container">
     <?php
+    session_start();
     require_once 'templates/navbar.php';
     require_once 'classes/Recette.php';
     $recette = new Recette('Croissants', 'Un petit plaisir tous les matins pour toute la famille',

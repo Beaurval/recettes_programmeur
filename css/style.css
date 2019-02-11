@@ -62,3 +62,10 @@ body{
 .zoom:hover{
     transform: scale(1.05);
 }
+.form-control{
+    resize: none;
+}
+.m-auto{
+    display: block;
+    margin: auto;
+}
