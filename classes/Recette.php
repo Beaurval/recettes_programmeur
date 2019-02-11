@@ -20,6 +20,7 @@ class Recette
         $this->path = $path;
     }
 
+
     /**
      * @return int
      */

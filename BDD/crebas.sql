@@ -1,10 +1,8 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  08/02/2019 14:13:26                      */
+/* Date de création :  11/02/2019 09:18:09                      */
 /*==============================================================*/
 
-
-drop table if exists T_QTE_INGREDIENT;
 
 drop table if exists T_CATEGORIE;
 
@@ -12,22 +10,13 @@ drop table if exists T_ETAPES;
 
 drop table if exists T_INGREDIENT;
 
+drop table if exists T_QTE_INGREDIENT;
+
 drop table if exists T_RECETTE;
 
 drop table if exists T_UNITE;
 
 drop table if exists T_USER;
-
-/*==============================================================*/
-/* Table : T_QTE_INGREDIENT                                              */
-/*==============================================================*/
-create table T_QTE_INGREDIENT
-(
-   ID_RECETTE           int not null,
-   ID_INGREDIENT        int not null,
-   QTE                  bigint,
-   primary key (ID_RECETTE, ID_INGREDIENT)
-);
 
 /*==============================================================*/
 /* Table : T_CATEGORIE                                          */
@@ -45,6 +34,7 @@ create table T_CATEGORIE
 create table T_ETAPES
 (
    ID_ETAPE             int not null auto_increment,
+   ID_RECETTE           int not null,
    NUM                  smallint,
    CONSIGNE             text,
    primary key (ID_ETAPE)
@@ -63,13 +53,23 @@ create table T_INGREDIENT
 );
 
 /*==============================================================*/
+/* Table : T_QTE_INGREDIENT                                     */
+/*==============================================================*/
+create table T_QTE_INGREDIENT
+(
+   ID_RECETTE           int not null,
+   ID_INGREDIENT        int not null,
+   QTE                  bigint,
+   primary key (ID_RECETTE, ID_INGREDIENT)
+);
+
+/*==============================================================*/
 /* Table : T_RECETTE                                            */
 /*==============================================================*/
 create table T_RECETTE
 (
    ID_RECETTE           int not null auto_increment,
    ID_USER              int not null,
-   ID_ETAPE             int not null,
    IMAGE                varchar(255),
    TITRE                longtext,
    RESUME               longtext,
@@ -106,11 +106,8 @@ create table T_USER
    primary key (ID_USER)
 );
 
-alter table T_QTE_INGREDIENT add constraint FK_T_QTE_INGREDIENT foreign key (ID_RECETTE)
+alter table T_ETAPES add constraint FK_DEFINIT foreign key (ID_RECETTE)
       references T_RECETTE (ID_RECETTE) on delete restrict on update restrict;
-
-alter table T_QTE_INGREDIENT add constraint FK_T_QTE_INGREDIENT2 foreign key (ID_INGREDIENT)
-      references T_INGREDIENT (ID_INGREDIENT) on delete restrict on update restrict;
 
 alter table T_INGREDIENT add constraint FK_APPARTIENT foreign key (ID_CATEGORIE)
       references T_CATEGORIE (ID_CATEGORIE) on delete restrict on update restrict;
@@ -118,8 +115,11 @@ alter table T_INGREDIENT add constraint FK_APPARTIENT foreign key (ID_CATEGORIE)
 alter table T_INGREDIENT add constraint FK_QUANTIFIE foreign key (ID_UNITE)
       references T_UNITE (ID_UNITE) on delete restrict on update restrict;
 
-alter table T_RECETTE add constraint FK_DEFINIT foreign key (ID_ETAPE)
-      references T_ETAPES (ID_ETAPE) on delete restrict on update restrict;
+alter table T_QTE_INGREDIENT add constraint FK_COMPOSE foreign key (ID_RECETTE)
+      references T_RECETTE (ID_RECETTE) on delete restrict on update restrict;
+
+alter table T_QTE_INGREDIENT add constraint FK_COMPOSE2 foreign key (ID_INGREDIENT)
+      references T_INGREDIENT (ID_INGREDIENT) on delete restrict on update restrict;
 
 alter table T_RECETTE add constraint FK_POSSEDE foreign key (ID_USER)
       references T_USER (ID_USER) on delete restrict on update restrict;

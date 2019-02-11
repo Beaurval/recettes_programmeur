@@ -16,59 +16,42 @@
     session_start();
     require_once 'templates/navbar.php';
     require_once 'classes/Recette.php';
-    $recette = new Recette('Croissants', 'Un petit plaisir tous les matins pour toute la famille',
-        2, 'assets/recette.jpg');
-    $pains = new Recette('Pains au chocolat', 'Pains au chocolat, ou chocolatine, tel est la question.',
-        1, 'assets/pains.jpg');
-    $raisins = new Recette('Pains aux raisins', 'Personne ne les aimes, mais pourtant irrésistibles',
-        4, 'assets/raisins.jpg');
+    require_once 'bdd.php';
+    $rep = $pdo->query("SELECT * FROM t_recette ORDER BY DATE");
+    $datas = $rep->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <article class="recettes bg-custom col-12">
         <h2 class="text-custom">Nos recettes</h2>
-        <div class="row col-12 ligne">
-            <?php
-            echo $recette->toHtml();
-            echo $recette->toHtml();
-            echo $recette->toHtml();
-            echo $recette->toHtml();
-            echo $recette->toHtml();
-            echo $recette->toHtml();
-            ?>
-        </div>
-        <div class="row col-12 ligne ">
-            <?php
-            echo $pains->toHtml();
-            echo $pains->toHtml();
-            echo $pains->toHtml();
-            echo $pains->toHtml();
-            echo $pains->toHtml();
-            echo $pains->toHtml();
-            ?>
-        </div>
-        <div class="row col-12 ligne">
-            <?php
-            echo $raisins->toHtml();
-            echo $raisins->toHtml();
-            echo $raisins->toHtml();
-            echo $raisins->toHtml();
-            echo $raisins->toHtml();
-            echo $raisins->toHtml();
-            ?>
-        </div>
-        <div class="row col-12 ligne">
-            <?php
-            echo $recette->toHtml();
-            echo $raisins->toHtml();
-            echo $pains->toHtml();
-            ?>
-        </div>
+        <?php
+        $nb=0;
+        $nbObjets = 0;
+        foreach ($datas as $data) {
+            if ($nb ==0)
+                echo "<div class=\"row col-12 ligne\">";
+
+            $obj = new Recette($data['TITRE'], utf8_encode($data['RESUME']).' '.$nb, $data['DIFFICULTE'], $data['IMAGE']);
+            echo $obj->toHtml();
+
+            $nb++;
+            $nbObjets++;
+            if ($nb == 6 || $nbObjets == count($datas))
+            {
+                echo "</div>";
+                $nb = 0;
+            }
+
+        }
+        ?>
         <div class="row col-12">
             <nav aria-label="..." class="mx-auto">
                 <ul class="pagination">
                     <li class="page-item active"><a class="page-link active" onclick="pagination(1)">1</a></li>
-                    <li class="page-item"><a class="page-link" onclick="pagination(2)">2</a></li>
-                    <li class="page-item"><a class="page-link" onclick="pagination(3)">3</a></li>
-                    <li class="page-item"><a class="page-link" onclick="pagination(4)">4</a></li>
+                    <?php
+                    for ($i=2; $i<=round($nbObjets/6); $i++)
+                    {
+                        echo "<li class=\"page-item\"><a class=\"page-link\" onclick=\"pagination($i)\">$i</a></li>";
+                    }
+                    ?>
                 </ul>
             </nav>
         </div>
@@ -92,11 +75,12 @@
             pages[i].hidden = true;
         }
     }
+
     function activeLink(index) {
         for (i = 0; i < links.length; i++) {
-            links[i].setAttribute('class','page-item');
+            links[i].setAttribute('class', 'page-item');
         }
-        links[index-1].setAttribute('class','page-item active');
+        links[index - 1].setAttribute('class', 'page-item active');
     }
 </script>
 </body>

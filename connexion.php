@@ -3,6 +3,7 @@ session_start();
 require_once 'bdd.php';
 
 
+
 if (!empty($_POST)) {
     $login = $_POST['login'];
     $mdp = $_POST['mdp'];
@@ -13,9 +14,9 @@ if (!empty($_POST)) {
         if ($data[0]['MDP'] === $mdp && $data[0]['LOGIN'] === $login)
         {
             $_SESSION['succes'] = true;
-            header('Location : ../index.php');
+            $_SESSION['id'] = $data[0]['ID_USER'];
+            header('Location: index.php');
         }
-
     }
 
 }
