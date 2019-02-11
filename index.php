@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php require_once 'templates/bootstrap.php'; ?>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/logo.png">
     <title>Recettes</title>
 </head>
@@ -14,6 +13,7 @@
 <div class="container">
     <?php
     session_start();
+    $nosRecettes = 'active';
     require_once 'templates/navbar.php';
     require_once 'classes/Recette.php';
     require_once 'bdd.php';
@@ -58,30 +58,6 @@
     </article>
 
 </div>
-<script>
-    var pages = document.getElementsByClassName('ligne');
-    var links = document.getElementsByClassName('page-item');
-    hideAll();
-    pagination(1);
-
-    function pagination(index) {
-        hideAll();
-        pages[index - 1].hidden = false;
-        activeLink(index);
-    }
-
-    function hideAll() {
-        for (i = 0; i < pages.length; i++) {
-            pages[i].hidden = true;
-        }
-    }
-
-    function activeLink(index) {
-        for (i = 0; i < links.length; i++) {
-            links[i].setAttribute('class', 'page-item');
-        }
-        links[index - 1].setAttribute('class', 'page-item active');
-    }
-</script>
+<script src="js/pagination.js"></script>
 </body>
 </html>

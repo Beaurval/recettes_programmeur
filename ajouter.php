@@ -17,6 +17,7 @@ session_start();
 <div class="container">
 
     <?php
+    $ajouter = 'active';
     require_once 'templates/navbar.php';
     ?>
     <div class="row bg-custom m-0">

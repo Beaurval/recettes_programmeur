@@ -69,3 +69,10 @@ body{
     display: block;
     margin: auto;
 }
+.navbar-nav>.active{
+    text-decoration: underline;
+}
+h2{
+    text-align: center;
+    color: #9ace02;
+}

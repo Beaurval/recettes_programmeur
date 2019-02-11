@@ -4,6 +4,12 @@ if (isset($_SESSION['succes']))
 else
     $isConned = 'hidden';
 
+if (!isset($vosRecettes))
+    $vosRecettes = '';
+if (!isset($nosRecettes))
+    $nosRecettes = '';
+if (!isset($ajouter))
+    $ajouter = '';
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-custom border-bottom">
@@ -52,16 +58,16 @@ else
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="nav-item <?= $nosRecettes?>">
                 <a class="nav-link " href="index.php">Nos recettes<span class="sr-only">(current)</span></a>
             </li>
             <?php if (isset($_SESSION['succes'])) {
                 ?>
-                <li class="nav-item">
+                <li class="nav-item <?= $ajouter?>">
                     <a class="nav-link " href="ajouter.php">Ajouter une recette</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#">Vos recettes</a>
+                <li class="nav-item <?= $vosRecettes?>">
+                    <a class="nav-link " href="vosRecettes.php">Vos recettes</a>
                 </li>
                 <?php
             }
