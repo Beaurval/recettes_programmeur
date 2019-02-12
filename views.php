@@ -30,11 +30,11 @@
         ?>
         <h1 class="titre text-custom"><?= utf8_encode($data[0]['TITRE']) ?></h1>
         <div class="row pt-3 border-top">
-            <div class="col-5">
+            <div class="ml-2">
                 <img style="border-radius: 10px" src="<?= $data[0]['IMAGE'] ?>" alt="image_recette" width="420"
                      height="235">
             </div>
-            <div class="col-7">
+            <div class="ml-2 col-6">
                 <h2 class="txt-none text-custom2">Description :</h2>
                 <p><?= utf8_encode($data[0]['RESUME']) ?></p>
             </div>
