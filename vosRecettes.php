@@ -1,4 +1,4 @@
-<div class="container bg-custom">
+<div class="container bg-custom p-0">
     <?php
     /**
      * Created by PhpStorm.

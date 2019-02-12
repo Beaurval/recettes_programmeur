@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 .bg-custom{
     background-color: #fdffff;
 }
@@ -67,7 +71,8 @@ body{
 }
 .m-auto{
     display: block;
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
 }
 .navbar-nav>.active{
     text-decoration: underline;

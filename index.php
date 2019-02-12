@@ -20,7 +20,7 @@
     $rep = $pdo->query("SELECT * FROM t_recette ORDER BY DATE");
     $datas = $rep->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    <article class="recettes bg-custom col-12">
+    <article class="bg-custom col-12">
         <h2 class="text-custom">Nos recettes</h2>
         <?php
         $nb=0;
