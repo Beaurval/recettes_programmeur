@@ -18,7 +18,7 @@ if (!isset($ajouter))
         <a class="navbar-brand" href="index.php">
             <img src="assets/logo.png" width="100" height="80" class="d-inline-block align-top" alt="logo">
         </a>
-        <label class="text-custom">Les recettes pour tous !</label>
+        <label class="text-custom">Les recettes pour tous</label>
     </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

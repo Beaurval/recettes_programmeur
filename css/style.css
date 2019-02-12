@@ -1,7 +1,9 @@
 *{
     box-sizing: border-box;
 }
-
+body{
+    font-family: 'Bitter', serif;
+}
 .bg-custom{
     background-color: #fdffff;
 }
