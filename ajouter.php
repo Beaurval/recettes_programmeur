@@ -10,27 +10,39 @@ if (!empty($_POST)) {
     $difficulte = $_POST['DIFFICULTE'];
     $temps = $_POST['TEMPS'];
     $cuisson = $_POST['CUISSON'];
-    $req = $pdo->prepare('INSERT INTO t_recette(ID_USER, TITRE, RESUME, IMAGE, DIFFICULTE, TEMPS, CUISSON, DATE) VALUES(?,?,?,?,?,?,?,NOW())');
+
+    $req = $pdo->prepare('INSERT INTO t_recette(ID_USER, TITRE, RESUME, IMAGE, DIFFICULTE, TEMPS, CUISSON, DATE,NBPERSON) VALUES(?,?,?,?,?,?,?,NOW(),?)');
     $req->execute(array(
         $_SESSION['id'],
-        $_POST['TITRE'],
-        $_POST['RESUME'],
-        $_POST['IMAGE'],
+        utf8_decode($_POST['TITRE']),
+        utf8_decode($_POST['RESUME']),
+        utf8_decode($_POST['IMAGE']),
         $_POST['DIFFICULTE'],
         $_POST['TEMPS'],
-        $_POST['CUISSON']
+        $_POST['CUISSON'],
+        $_POST['personne']
     ));
 
-    $lastId = $pdo->lastInsertId();
-    $numero = 1;
-    foreach ($_POST['CONSIGNE'] as $consigne) {
 
+    //On récupère la dernière ID insérée dans la Base (ici c'est ID_RECETTE)
+    $lastId = $pdo->lastInsertId();
+
+    //numéro de l'étape (c'est un compteur qui s'incrémente
+    $numero = 1;
+
+    //$_POST['CONSIGNE'] est un tableau qui contient nos étapes, donc pour chaque index du tableau on insert dans $consigne
+    foreach ($_POST['CONSIGNE'] as $consigne) {
+        //On insert dans la base chaque consigne recue, mais pour la même recette
         $req = $pdo->prepare('INSERT INTO t_etapes(ID_RECETTE, NUM, CONSIGNE) VALUES(?,?,?)');
+
+        //on indique la valeur dans l'ordre de chaque '?'
         $req->execute(array(
             $lastId,
             $numero,
             $consigne
         ));
+
+        //On incrémente notre compteur d'étapes
         $numero++;
     }
 }
@@ -106,6 +118,13 @@ if (!empty($_POST)) {
                 </div>
             </div>
             <hr>
+            <div class="input-group">
+                <input required type="number" id="personne" name="personne" class="form-control col-1">
+                <div class="input-group-append">
+                    <span class="input-group-text">personnes</span>
+                </div>
+            </div>
+            <hr>
             <p class="m-0">Difficulté</p>
             <div class="rating">
                 <label>
@@ -159,7 +178,8 @@ if (!empty($_POST)) {
 
                 //text box increment
                 $(wrapper).append('<div class="input-group mt-3">\n' +
-                    '  <input name="CONSIGNE[]" type="text" class="form-control" placeholder="Instruction de l\'étape" aria-label="Instruction de l\'étape" aria-describedby="button-addon4">\n' +
+                    '  <input name="CONSIGNE[]" type="text" class="form-control" placeholder="Instruction de l\'étape" ' +
+                    'aria-label="Instruction de l\'étape" aria-describedby="button-addon4">\n' +
                     '  <div class="input-group-append" id="button-addon4">\n' +
                     '  <button class="remove_field btn btn-outline-secondary" type="button">Supprimer</button></div>'); //add input box
                 x++;

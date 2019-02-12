@@ -25,7 +25,10 @@ class Recette
             $this->difficulte = 5;
 
         $this->titre = $titre;
-        $this->description = $description;
+        if (strlen($description)> 70)
+            $this->description = substr($description,0,60).' ...';
+        else
+            $this->description = $description;
         $this->path = $path;
         $this->idRecette = $idRecette;
     }
