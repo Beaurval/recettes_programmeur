@@ -20,12 +20,12 @@
             $reponse = $pdo->query("
         SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NUM,CONSIGNE,NBPERSON
         FROM recettes.t_recette
-        INNER JOIN t_etapes ON t_recette.ID_RECETTE = t_etapes.ID_RECETTE 
+        LEFT JOIN t_etapes ON t_recette.ID_RECETTE = t_etapes.ID_RECETTE 
         WHERE t_recette.ID_RECETTE=$id");
             $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
 
         } ?>
-        <h1 class="titre text-custom"><?= $data[0]['TITRE'] ?></h1>
+        <h1 class="titre text-custom"><?= utf8_encode($data[0]['TITRE']) ?></h1>
         <div class="row pt-3 border-top">
             <div class="col-5">
                 <img style="border-radius: 10px" src="<?= $data[0]['IMAGE'] ?>" alt="image_recette" width="420"
@@ -33,7 +33,7 @@
             </div>
             <div class="col-7">
                 <h2 class="txt-none text-custom2">Description :</h2>
-                <p><?= $data[0]['RESUME'] ?></p>
+                <p><?= utf8_encode($data[0]['RESUME']) ?></p>
             </div>
         </div>
         <div class="row centerded mt-2" style="font-size: 1.4em">
