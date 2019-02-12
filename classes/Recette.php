@@ -14,7 +14,13 @@ class Recette
 
     public function __construct($titre = 'Insérez le titre de votre recette', $description = 'Votre description', $difficulte = 1, $path = '...')
     {
-        $this->difficulte = $difficulte;
+        if ($this->difficulte >= 1 && $this->difficulte <= 5)
+            $this->difficulte = $difficulte;
+        elseif($this->difficulte < 1)
+            $this->difficulte = 1;
+        else
+            $this->difficulte = 5;
+
         $this->titre = $titre;
         $this->description = $description;
         $this->path = $path;
@@ -34,7 +40,12 @@ class Recette
      */
     public function setDifficulte($difficulte)
     {
-        $this->difficulte = $difficulte;
+        if ($difficulte >= 1 && $difficulte <= 5)
+            $this->difficulte = $difficulte;
+        elseif($difficulte < 1)
+            $this->difficulte = 1;
+        else
+            $this->difficulte = 5;
     }
 
     /**

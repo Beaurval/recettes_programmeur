@@ -60,25 +60,29 @@ if (!empty($_POST)) {
         <form action="ajouter.php" method="POST" class="col-8 mx-auto">
             <div class="form-group">
                 <label for="titre">Titre</label>
-                <input type="text" class="form-control" id="titre" aria-describedby="emailHelp" name="TITRE"
+                <input required type="text" class="form-control" id="titre" aria-describedby="emailHelp" name="TITRE"
                        placeholder="">
             </div>
             <hr>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="RESUME" rows="3"></textarea>
+                <textarea required class="form-control" id="description" name="RESUME" rows="3"></textarea>
             </div>
+
             <hr>
+
             <div class="input_fields_wrap form-group">
                 <div>
                     <label for="step">Étapes</label>
                     <button class="add_field_button btn btn-success"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
+
             <hr>
+
             <div class="input-group mb-3">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02" name="IMAGE">
+                    <input required type="file" class="custom-file-input" id="inputGroupFile02" name="IMAGE">
                     <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Sélectionnez
                         un fichier</label>
                 </div>
@@ -87,17 +91,16 @@ if (!empty($_POST)) {
                 </div>
             </div>
             <hr>
-            <div class="input-group">
-                <input type="number" id="temps" name="TEMPS" class="form-control col-3"
-                       placeholder="Préparation">
+            <label for="temps">Temps de préparation</label>
+            <div class="input-group mb-3">
+                <input required type="number" id="temps" name="TEMPS" class="form-control col-1">
                 <div class="input-group-append">
                     <span class="input-group-text">min</span>
                 </div>
             </div>
-            <hr>
+            <label for="cuisson">Temps de cuisson</label>
             <div class="input-group">
-                <input type="number" id="cuisson" name="CUISSON" class="form-control col-3"
-                       placeholder="Cuisson">
+                <input required type="number" id="cuisson" name="CUISSON" class="form-control col-1">
                 <div class="input-group-append">
                     <span class="input-group-text">min</span>
                 </div>
@@ -106,29 +109,29 @@ if (!empty($_POST)) {
             <p class="m-0">Difficulté</p>
             <div class="rating">
                 <label>
-                    <input type="radio" name="DIFFICULTE" value="1"/>
+                    <input required type="radio" name="DIFFICULTE" value="1"/>
                     <span class="icon">★</span>
                 </label>
                 <label>
-                    <input type="radio" name="DIFFICULTE" value="2"/>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                </label>
-                <label>
-                    <input type="radio" name="DIFFICULTE" value="3"/>
-                    <span class="icon">★</span>
+                    <input required type="radio" name="DIFFICULTE" value="2"/>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                 </label>
                 <label>
-                    <input type="radio" name="DIFFICULTE" value="4"/>
-                    <span class="icon">★</span>
+                    <input required type="radio" name="DIFFICULTE" value="3"/>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                 </label>
                 <label>
-                    <input type="radio" name="DIFFICULTE" value="5"/>
+                    <input required type="radio" name="DIFFICULTE" value="4"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+                <label>
+                    <input required type="radio" name="DIFFICULTE" value="5"/>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
@@ -155,7 +158,10 @@ if (!empty($_POST)) {
             if (x < max_fields) { //max input box allowed
 
                 //text box increment
-                $(wrapper).append('<div><input class="form-control" type="text" name="CONSIGNE[]"/><a href="#"  class="remove_field">Supprimer</a></div>'); //add input box
+                $(wrapper).append('<div class="input-group mt-3">\n' +
+                    '  <input name="CONSIGNE[]" type="text" class="form-control" placeholder="Instruction de l\'étape" aria-label="Instruction de l\'étape" aria-describedby="button-addon4">\n' +
+                    '  <div class="input-group-append" id="button-addon4">\n' +
+                    '  <button class="remove_field btn btn-outline-secondary" type="button">Supprimer</button></div>'); //add input box
                 x++;
             }
         });
@@ -163,7 +169,7 @@ if (!empty($_POST)) {
         $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
 
             e.preventDefault();
-            $(this).parent('div').remove();
+            $(this).parent('div').parent('div').remove();
             x--;
         })
     });
