@@ -33,8 +33,7 @@ if (!empty($_POST)) {
         $fichier = strtr($fichier,
             'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
             'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-        $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-        if (move_uploaded_file($_FILES['IMAGE']['tmp_name'], $dossier . $_FILES['name'])) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+        if (move_uploaded_file($_FILES['IMAGE']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
         {
 
         } else //Sinon (la fonction renvoie FALSE).
