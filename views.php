@@ -24,11 +24,20 @@
             $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
 
             $reponse = $pdo->query("
-        SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NBPERSON,QTE_UNITE,NOMINGREDIENT
+        SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NBPERSON,QTE_UNITE,NOMINGREDIENT,T_RECETTE.ID_RECETTE
         FROM T_RECETTE
         LEFT JOIN T_INGREDIENT ON T_RECETTE.ID_RECETTE = T_INGREDIENT.ID_RECETTE 
         WHERE T_RECETTE.ID_RECETTE=$id");
             $data2 = $reponse->fetchAll(pdo::FETCH_ASSOC);
+
+                $id = $_GET['id'];
+                $etape = $_POST['ID_INGREDIENT'];
+            $req = $pdo->prepare('INSERT INTO T_COURSE(ID_USER, ID_RECETTE, ID_INGREDIENT) VALUES(?,?');
+            $req->execute(array(
+                $_SESSION['id'],
+                $id,
+                $etape));
+
         }
 
         ?>
@@ -70,6 +79,7 @@
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
                 <h2>Ingrédients</h2>
+                <form action="/view.php" method="post">
                 <?php
                 foreach ($data2 as $etape)
                 {
@@ -78,9 +88,13 @@
                     <p><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></p>
                 </div>
 
+
                 <?php
-                            }
-                            ?>
+                }
+                ?>
+
+                    <button  type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></button>
+                </form>
             </div>
             <div class="col-lg-8 col-md-12">
                 <h2>Préparation</h2>

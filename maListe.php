@@ -4,11 +4,14 @@ $maliste = 'active';
 require_once 'bdd.php';
 
 if (!empty($_GET)) {
-    $id = $_GET['id'];
+
+    $id = $_SESSION["id"];
+
     $reponse = $pdo->query("
-    SELECT T_RECETTE.IMAGE AS IMAGE, T_RECETTE.TITRE AS TITRE, T_INGREDIENT.NOMINGREDIENT AS NOMINGREDIENT, T_INGREDIENT.QTE_UNITE AS QTE_UNITE 
-    FROM T_RECETTE 
-    JOIN T_INGREDIENT ON T_RECETTE.ID_RECETTE = T_INGREDIENT.ID_RECETTE");
+    SELECT QTE_UNITE, NOMINGREDIENT
+    FROM Vue_Ingredients
+    WHERE ID_USER = $id
+    ORDER BY NOMINGREDIENT");
     $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
 }
 
@@ -41,9 +44,14 @@ if (!empty($_GET)) {
                 <?php 
                     foreach($data as $recette) 
                 {
+                    if($recette['QTE_UNITE'] != '')
+                        $texte = $recette["QTE_UNITE"] . ' de ' . $recette['NOMINGREDIENT'];
+                        else
+                        $texte = $recette['NOMINGREDIENT'];
+
                     ?>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><?= $recette["QTE_UNITE"] . ' de ' . $recette['NOMINGREDIENT'] ?></li>
+                        <li class="list-group-item"><?= $texte ?></li>
                     </ul>
                     <?php
                 }
