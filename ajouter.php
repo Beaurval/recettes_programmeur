@@ -45,6 +45,18 @@ if (!empty($_POST)) {
         //On incrémente notre compteur d'étapes
         $numero++;
     }
+    $lastId2 = $pdo->lastInsertId();
+    $nbIngredient = 1;
+    foreach ($_POST['NOMINGREDIENT'] as $ingredient) {
+
+       $req = $pdo->prepare('INSERT INTO t_ingredient(ID_RECETTE, QTE_UNITE, NOMINGREDIENT) VALUES(?,?,?)');
+        $req->execute(array(
+            $lastId2,
+            $nbIngredient,
+            $ingredient
+            ));
+        $nbIngredient++;
+    }
 }
 
 
@@ -79,6 +91,27 @@ if (!empty($_POST)) {
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea required class="form-control" id="description" name="RESUME" rows="3"></textarea>
+            </div>
+
+            <hr>
+
+            <div id="education_fields"></div>
+            <div class="row">
+            <div class="form-group col-3">
+                <input type="text" class="form-control" id="Schoolname" name="QTE_UNITE[]" value="" placeholder="Quantité">
+            </div>
+            <div class="col-2">
+                de
+            </div>
+            <div class="form-group col-5">
+                <input type="text" class="form-control" id="Degree" name="NOMINGREDIENT[]" value="" placeholder="Ingrédient">
+            </div>
+            <div class="input-group col-2">
+                <div class="input-group-btn">
+                    <button class="btn btn-success" type="button"  onclick="education_fields();"> <i class="fas fa-plus"></i> </button>
+                </div>
+            </div>
+            <div class="clear"></div>
             </div>
 
             <hr>
@@ -194,4 +227,29 @@ if (!empty($_POST)) {
         })
     });
 
+</script>
+<script>
+    var room = 1;
+    function education_fields() {
+
+        room++;
+        var objTo = document.getElementById('education_fields')
+        var divtest = document.createElement("div");
+        divtest.setAttribute("class", "form-group removeclass"+room);
+        var rdiv = 'removeclass'+room;
+        divtest.innerHTML = '            <div class="row">\n' +
+            '            <div class="form-group col-3">\n' +
+            '                <input type="text" class="form-control" id="Schoolname" name="QTE_UNITE[]" value="" placeholder="Quantité">\n' +
+            '            </div>\n' +
+            '<div class="col-2">de</div>\n' +
+
+            '            <div class="form-group col-5">\n' +
+            '                <input type="text" class="form-control" id="Degree" name="NOMINGREDIENT[]" value="" placeholder="Ingrédient">\n' +
+            '            </div><div class="input-group-btn col-2"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <i class="fas fa-minus"></i> </button></div></div></div></div><div class="clear"></div>';
+
+        objTo.appendChild(divtest)
+    }
+    function remove_education_fields(rid) {
+        $('.removeclass'+rid).remove();
+    }
 </script>
