@@ -53,7 +53,7 @@ if (!empty($_POST)) {
         $_SESSION['id'],
         utf8_encode($_POST['TITRE']),
         $description,
-        utf8_encode("assets/" . $image),
+        utf8_encode("assets/".$_FILES['IMAGE']['name']),
         $_POST['DIFFICULTE'],
         $_POST['TEMPS'],
         $_POST['CUISSON'],
