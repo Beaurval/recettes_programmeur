@@ -70,17 +70,19 @@
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
                 <h2>Ingrédients</h2>
+                <ul>
                 <?php
                 foreach ($data2 as $etape)
                 {
                 ?>
-                <div class="row centerded">
-                    <p><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></p>
-                </div>
+
+                    <li><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></li>
+
 
                 <?php
                             }
                             ?>
+                </ul>
             </div>
             <div class="col-lg-8 col-md-12">
                 <h2>Préparation</h2>
