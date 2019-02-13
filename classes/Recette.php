@@ -11,13 +11,26 @@ class Recette
     private $difficulte;
     private $titre;
     private $description;
+    private $idRecette;
 
-    public function __construct($titre = 'Insérez le titre de votre recette', $description = 'Votre description', $difficulte = 1, $path = '...')
+    public function __construct($idRecette, $titre = 'Insérez le titre de votre recette', $description = 'Votre description', $difficulte = 1, $path = '...')
     {
-        $this->difficulte = $difficulte;
+        if ($difficulte >= 1 && $difficulte <= 5)
+            $this->difficulte = $difficulte;
+
+        elseif($difficulte < 1)
+            $this->difficulte = 1;
+
+        else
+            $this->difficulte = 5;
+
         $this->titre = $titre;
-        $this->description = $description;
+        if (strlen($description)> 70)
+            $this->description = substr($description,0,60).' ...';
+        else
+            $this->description = $description;
         $this->path = $path;
+        $this->idRecette = $idRecette;
     }
 
 
@@ -34,7 +47,12 @@ class Recette
      */
     public function setDifficulte($difficulte)
     {
-        $this->difficulte = $difficulte;
+        if ($difficulte >= 1 && $difficulte <= 5)
+            $this->difficulte = $difficulte;
+        elseif($difficulte < 1)
+            $this->difficulte = 1;
+        else
+            $this->difficulte = 5;
     }
 
     /**
@@ -95,7 +113,7 @@ class Recette
         return
             "
         <div class=\"zoom col-xl-4 col-md-6 col-sm-12 mb-4\">
-             <a class='text-normal' href='#'>
+             <a class='text-normal' href='views.php?id=$this->idRecette'>
                 <div class=\"cardHeight card\">
                     <img src=\"$this->path\" class=\"myNewDivHeight card-img-top\" alt=\"...\">
                     <div class=\"card-body\">

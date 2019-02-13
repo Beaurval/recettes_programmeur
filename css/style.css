@@ -1,7 +1,9 @@
 *{
     box-sizing: border-box;
 }
-
+body{
+    font-family: 'Bitter', serif;
+}
 .bg-custom{
     background-color: #fdffff;
 }
@@ -10,6 +12,9 @@
 }
 .text-custom{
     color: #9ace02;
+}
+.text-custom2{
+    color: #fd0001;
 }
 .text-custom:hover {
     text-decoration: none;
@@ -22,6 +27,9 @@
 .text-normal:hover {
     text-decoration: none;
     color: #333134;
+}
+.p-custom{
+    padding: 10px 40px 10px 40px;
 }
 
 body{
@@ -50,6 +58,13 @@ body{
     align-items: baseline;
     justify-content: flex-start;
 }
+.align-center{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+
 @media screen and (min-width: 1024px) {
     .myNewDivHeight{
         height:150px;
@@ -80,4 +95,22 @@ body{
 h2{
     text-align: center;
     color: #9ace02;
+}
+.txt-none{
+    text-align: start ;
+}
+.txt-center{
+    text-align: center;
+}
+.space-btwn{
+    display: flex;
+    justify-content: space-between;
+}
+.rounded-top{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px ;
+}
+.rounded-bot{
+    border-bot-left-radius: 10px;
+    border-bot-right-radius: 10px ;
 }
