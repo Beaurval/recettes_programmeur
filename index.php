@@ -29,7 +29,7 @@
             if ($nb ==0)
                 echo "<div class=\"row col-12 ligne\">";
 
-            $obj = new Recette($data['ID_RECETTE'],utf8_encode($data['TITRE']), utf8_encode($data['RESUME']), $data['DIFFICULTE'], $data['IMAGE']);
+            $obj = new Recette($data['ID_RECETTE'],$data['TITRE'], $data['RESUME'], $data['DIFFICULTE'], $data['IMAGE']);
             echo $obj->toHtml();
 
             $nb++;

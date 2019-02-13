@@ -26,7 +26,7 @@ class Recette
 
         $this->titre = $titre;
         if (strlen($description)> 70)
-            $this->description = substr($description,0,60).' ...';
+            $this->description = substr($description,0,61).' ...';
         else
             $this->description = $description;
         $this->path = $path;

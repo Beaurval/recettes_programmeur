@@ -24,10 +24,10 @@
             $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
 
             $reponse = $pdo->query("
-        SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NBPERSON,QTE_UNITE,INGRENOM
+        SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NBPERSON,QTE_UNITE,NOMINGREDIENT
         FROM T_RECETTE
         LEFT JOIN T_INGREDIENT ON T_RECETTE.ID_RECETTE = T_INGREDIENT.ID_RECETTE 
-        WHERE t_recette.ID_RECETTE=$id");
+        WHERE T_RECETTE.ID_RECETTE=$id");
             $data2 = $reponse->fetchAll(pdo::FETCH_ASSOC);
         }
 
@@ -40,7 +40,7 @@
             </div>
             <div class="ml-2 col-6">
                 <h2 class="txt-none text-custom2">Description :</h2>
-                <p><?= utf8_encode($data[0]['RESUME']) ?></p>
+                <p><?= $data[0]['RESUME'] ?></p>
             </div>
         </div>
         <div class="row centerded mt-2" style="font-size: 1.4em">
@@ -75,7 +75,7 @@
                 {
                 ?>
                 <div class="row centerded">
-                    <p><?= $etape['QTE_UNITE']." de ". $etape['INGRENOM'] ?></p>
+                    <p><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></p>
                 </div>
 
                 <?php
