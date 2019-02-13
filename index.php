@@ -17,7 +17,7 @@
     require_once 'templates/navbar.php';
     require_once 'classes/Recette.php';
     require_once 'bdd.php';
-    $rep = $pdo->query("SELECT * FROM t_recette ORDER BY DATE");
+    $rep = $pdo->query("SELECT * FROM T_RECETTE ORDER BY DATE");
     $datas = $rep->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <article class="bg-custom col-12">

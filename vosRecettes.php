@@ -18,7 +18,7 @@
 
         <?php
         $id = $_SESSION['id'];
-        $reponse = $pdo->query("SELECT * FROM t_recette where ID_user='$id'");
+        $reponse = $pdo->query("SELECT * FROM T_RECETTE where ID_user='$id'");
         $test1 = $reponse->fetchAll(pdo::FETCH_ASSOC);
         foreach ($test1 as $test) {
             $resume = $test['RESUME'];

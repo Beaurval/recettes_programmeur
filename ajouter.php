@@ -11,12 +11,12 @@ if (!empty($_POST)) {
     $temps = $_POST['TEMPS'];
     $cuisson = $_POST['CUISSON'];
 
-    $req = $pdo->prepare('INSERT INTO t_recette(ID_USER, TITRE, RESUME, IMAGE, DIFFICULTE, TEMPS, CUISSON, DATE,NBPERSON) VALUES(?,?,?,?,?,?,?,NOW(),?)');
+    $req = $pdo->prepare('INSERT INTO T_RECETTE(ID_USER, TITRE, RESUME, IMAGE, DIFFICULTE, TEMPS, CUISSON, DATE,NBPERSON) VALUES(?,?,?,?,?,?,?,NOW(),?)');
     $req->execute(array(
         $_SESSION['id'],
         utf8_decode($_POST['TITRE']),
         utf8_decode($_POST['RESUME']),
-        utf8_decode($_POST['IMAGE']),
+        utf8_decode("assets/".$_POST['IMAGE']),
         $_POST['DIFFICULTE'],
         $_POST['TEMPS'],
         $_POST['CUISSON'],
@@ -33,7 +33,7 @@ if (!empty($_POST)) {
     //$_POST['CONSIGNE'] est un tableau qui contient nos étapes, donc pour chaque index du tableau on insert dans $consigne
     foreach ($_POST['CONSIGNE'] as $consigne) {
         //On insert dans la base chaque consigne recue, mais pour la même recette
-        $req = $pdo->prepare('INSERT INTO t_etapes(ID_RECETTE, NUM, CONSIGNE) VALUES(?,?,?)');
+        $req = $pdo->prepare('INSERT INTO T_ETAPES(ID_RECETTE, NUM, CONSIGNE) VALUES(?,?,?)');
 
         //on indique la valeur dans l'ordre de chaque '?'
         $req->execute(array(
@@ -45,15 +45,14 @@ if (!empty($_POST)) {
         //On incrémente notre compteur d'étapes
         $numero++;
     }
-    $lastId2 = $pdo->lastInsertId();
-    $nbIngredient = 1;
+    $nbIngredient = 0;
     foreach ($_POST['NOMINGREDIENT'] as $ingredient) {
 
-       $req = $pdo->prepare('INSERT INTO t_ingredient(ID_RECETTE, QTE_UNITE, NOMINGREDIENT) VALUES(?,?,?)');
+       $req = $pdo->prepare('INSERT INTO t_ingredient(ID_RECETTE,QTE_UNITE ,INGRENOM) VALUES(?,?,?)');
         $req->execute(array(
-            $lastId2,
-            $nbIngredient,
-            $ingredient
+            $lastId,
+            utf8_decode($_POST['QTE_UNITE'][$nbIngredient]),
+            utf8_decode($ingredient)
             ));
         $nbIngredient++;
     }

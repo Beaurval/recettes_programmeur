@@ -7,7 +7,7 @@ require_once 'bdd.php';
 if (!empty($_POST)) {
     $login = $_POST['login'];
     $mdp = $_POST['mdp'];
-    $rep = $pdo->query("SELECT * FROM t_user WHERE LOGIN = '$login'");
+    $rep = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'");
     $data = $rep->fetchAll(PDO::FETCH_ASSOC);
     if (!empty($data))
     {
