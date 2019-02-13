@@ -2,6 +2,16 @@
 session_start();
 $maliste = 'active';
 require_once 'bdd.php';
+
+if (!empty($_GET)) {
+    $id = $_GET['id'];
+    $reponse = $pdo->query("
+    SELECT T_RECETTE.IMAGE AS IMAGE, T_RECETTE.TITRE AS TITRE, T_INGREDIENT.NOMINGREDIENT AS NOMINGREDIENT, T_INGREDIENT.QTE_UNITE AS QTE_UNITE 
+    FROM T_RECETTE 
+    JOIN T_INGREDIENT ON T_RECETTE.ID_RECETTE = T_INGREDIENT.ID_RECETTE");
+    $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
+}
+
 ?>
 
 <!doctype html>
@@ -28,7 +38,16 @@ require_once 'bdd.php';
             </div>
             <div>
                 <h2 class="txt-none">Les recettes</h2>
-                           
+                <?php 
+                    foreach($data as $recette) 
+                {
+                    ?>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><?= $recette["QTE_UNITE"] . ' de ' . $recette['NOMINGREDIENT'] ?></li>
+                    </ul>
+                    <?php
+                }
+                ?>
             </div>
         </div>
 
