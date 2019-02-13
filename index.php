@@ -25,6 +25,7 @@
         <?php
         $nb=0;
         $nbObjets = 0;
+        var_dump($datas);
         foreach ($datas as $data) {
             if ($nb ==0)
                 echo "<div class=\"row col-12 ligne\">";
