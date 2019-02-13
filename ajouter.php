@@ -6,17 +6,54 @@ require_once 'bdd.php';
 if (!empty($_POST)) {
     $titre = $_POST['TITRE'];
     $resume = $_POST['RESUME'];
-    $image = $_POST['IMAGE'];
+    $image = $_FILES['IMAGE']['name'];
     $difficulte = $_POST['DIFFICULTE'];
     $temps = $_POST['TEMPS'];
     $cuisson = $_POST['CUISSON'];
+    $description = $_POST['RESUME'];
+
+    $dossier = 'assets/';
+    $fichier = basename($_FILES['IMAGE']['name']);
+    $taille_maxi = 100000;
+    $taille = filesize($_FILES['IMAGE']['tmp_name']);
+    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+    $extension = strrchr($_FILES['IMAGE']['name'], '.');
+
+//Début des vérifications de sécurité...
+    if (!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
+    {
+        $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg, txt ou doc...';
+    }
+    if ($taille > $taille_maxi) {
+        $erreur = 'Le fichier est trop gros...';
+    }
+    if (!isset($erreur)) //S'il n'y a pas d'erreur, on upload
+    {
+        //On formate le nom du fichier ici...
+        $fichier = strtr($fichier,
+            'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
+            'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+        $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+        if (move_uploaded_file($_FILES['IMAGE']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+        {
+
+        } else //Sinon (la fonction renvoie FALSE).
+        {
+            echo 'Echec de l\'upload !';
+        }
+    } else {
+        echo $erreur;
+    }
+
+
+    /*$description = str_replace("'","\'",$description);*/
 
     $req = $pdo->prepare('INSERT INTO T_RECETTE(ID_USER, TITRE, RESUME, IMAGE, DIFFICULTE, TEMPS, CUISSON, DATE,NBPERSON) VALUES(?,?,?,?,?,?,?,NOW(),?)');
     $req->execute(array(
         $_SESSION['id'],
-        utf8_decode($_POST['TITRE']),
-        utf8_decode($_POST['RESUME']),
-        utf8_decode("assets/".$_POST['IMAGE']),
+        utf8_encode($_POST['TITRE']),
+        $description,
+        utf8_encode("assets/" . $image),
         $_POST['DIFFICULTE'],
         $_POST['TEMPS'],
         $_POST['CUISSON'],
@@ -46,14 +83,15 @@ if (!empty($_POST)) {
         $numero++;
     }
     $nbIngredient = 0;
+
     foreach ($_POST['NOMINGREDIENT'] as $ingredient) {
 
-       $req = $pdo->prepare('INSERT INTO t_ingredient(ID_RECETTE,QTE_UNITE ,INGRENOM) VALUES(?,?,?)');
+        $req = $pdo->prepare('INSERT INTO T_INGREDIENT(ID_RECETTE,QTE_UNITE ,NOMINGREDIENT) VALUES(?,?,?)');
         $req->execute(array(
             $lastId,
-            utf8_decode($_POST['QTE_UNITE'][$nbIngredient]),
-            utf8_decode($ingredient)
-            ));
+            utf8_encode($_POST['QTE_UNITE'][$nbIngredient]),
+            $ingredient
+        ));
         $nbIngredient++;
     }
 }
@@ -80,7 +118,7 @@ if (!empty($_POST)) {
     require_once 'templates/navbar.php';
     ?>
     <div class="row col-12 bg-custom m-0">
-        <form action="ajouter.php" method="POST" class="col-8 mx-auto">
+        <form action="ajouter.php" method="POST" class="col-8 mx-auto" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="titre">Titre</label>
                 <input required type="text" class="form-control" id="titre" aria-describedby="emailHelp" name="TITRE"
@@ -96,21 +134,24 @@ if (!empty($_POST)) {
 
             <div id="education_fields"></div>
             <div class="row">
-            <div class="form-group col-3">
-                <input type="text" class="form-control" id="Schoolname" name="QTE_UNITE[]" value="" placeholder="Quantité">
-            </div>
-            <div class="col-2">
-                de
-            </div>
-            <div class="form-group col-5">
-                <input type="text" class="form-control" id="Degree" name="NOMINGREDIENT[]" value="" placeholder="Ingrédient">
-            </div>
-            <div class="input-group col-2">
-                <div class="input-group-btn">
-                    <button class="btn btn-success" type="button"  onclick="education_fields();"> <i class="fas fa-plus"></i> </button>
+                <div class="form-group col-3">
+                    <input type="text" class="form-control" id="Schoolname" name="QTE_UNITE[]" value=""
+                           placeholder="Quantité">
                 </div>
-            </div>
-            <div class="clear"></div>
+                <div class="col-2">
+                    de
+                </div>
+                <div class="form-group col-5">
+                    <input type="text" class="form-control" id="Degree" name="NOMINGREDIENT[]" value=""
+                           placeholder="Ingrédient">
+                </div>
+                <div class="input-group col-2">
+                    <div class="input-group-btn">
+                        <button class="btn btn-success" type="button" onclick="education_fields();"><i
+                                    class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
 
             <hr>
@@ -229,13 +270,14 @@ if (!empty($_POST)) {
 </script>
 <script>
     var room = 1;
+
     function education_fields() {
 
         room++;
         var objTo = document.getElementById('education_fields')
         var divtest = document.createElement("div");
-        divtest.setAttribute("class", "form-group removeclass"+room);
-        var rdiv = 'removeclass'+room;
+        divtest.setAttribute("class", "form-group removeclass" + room);
+        var rdiv = 'removeclass' + room;
         divtest.innerHTML = '            <div class="row">\n' +
             '            <div class="form-group col-3">\n' +
             '                <input type="text" class="form-control" id="Schoolname" name="QTE_UNITE[]" value="" placeholder="Quantité">\n' +
@@ -244,11 +286,12 @@ if (!empty($_POST)) {
 
             '            <div class="form-group col-5">\n' +
             '                <input type="text" class="form-control" id="Degree" name="NOMINGREDIENT[]" value="" placeholder="Ingrédient">\n' +
-            '            </div><div class="input-group-btn col-2"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <i class="fas fa-minus"></i> </button></div></div></div></div><div class="clear"></div>';
+            '            </div><div class="input-group-btn col-2"> <button class="btn btn-danger" type="button" onclick="remove_education_fields(' + room + ');"> <i class="fas fa-minus"></i> </button></div></div></div></div><div class="clear"></div>';
 
         objTo.appendChild(divtest)
     }
+
     function remove_education_fields(rid) {
-        $('.removeclass'+rid).remove();
+        $('.removeclass' + rid).remove();
     }
 </script>
