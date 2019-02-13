@@ -11,7 +11,9 @@ if (!isset($nosRecettes))
     $nosRecettes = '';
 if (!isset($ajouter))
     $ajouter = '';
-    if (!isset($maListe))
+if (!isset($maListe))
+    $maListe = '';
+if (!isset($maListe))
     $maListe = '';
 ?>
 
@@ -72,7 +74,7 @@ if (!isset($ajouter))
                 <li class="nav-item <?= $vosRecettes?>">
                     <a class="nav-link " href="vosRecettes.php">Vos recettes</a>
                 </li>
-                <li class="nav-item <?= $MaListe?>">
+                <li class="nav-item <?= $maListe?>">
                     <a class="nav-link " href="maListe.php">Ma Liste de Courses</a>
                 </li>
                 <?php

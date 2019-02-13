@@ -33,7 +33,6 @@ if (!empty($_POST)) {
         $fichier = strtr($fichier,
             'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
             'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-        $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
         if (move_uploaded_file($_FILES['IMAGE']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
         {
 
@@ -53,7 +52,7 @@ if (!empty($_POST)) {
         $_SESSION['id'],
         utf8_encode($_POST['TITRE']),
         $description,
-        utf8_encode("assets/" . $image),
+        utf8_encode("assets/".$_FILES['IMAGE']['name']),
         $_POST['DIFFICULTE'],
         $_POST['TEMPS'],
         $_POST['CUISSON'],
