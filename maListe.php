@@ -1,5 +1,6 @@
 <?php
 session_start();
+$maliste = 'active';
 require_once 'bdd.php';
 ?>
 
