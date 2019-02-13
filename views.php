@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sélection</title>
+</head>
+<body id="body">
+
+
 <div class="container">
     <?php
     /**
@@ -60,7 +72,7 @@
                 <i class="fas fa-calendar-week text-custom2"></i>
                 <span>
                     <?php
-                    $format = new IntlDateFormatter('fr-FR',IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
+                    $format = new IntlDateFormatter('fr-FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
                     echo $format->format(strtotime($data[0]['DATE']));
                     ?>
                 </span>
@@ -71,17 +83,16 @@
             <div class="col-lg-4 col-md-12 border-right">
                 <h2>Ingrédients</h2>
                 <ul>
-                <?php
-                foreach ($data2 as $etape)
-                {
-                ?>
+                    <?php
+                    foreach ($data2 as $etape) {
+                        ?>
 
-                    <li><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></li>
+                        <li><?= $etape['QTE_UNITE'] . " de " . $etape['NOMINGREDIENT'] ?></li>
 
 
-                <?php
-                            }
-                            ?>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="col-lg-8 col-md-12">
@@ -89,7 +100,8 @@
                 <div class="col-10 mx-auto">
                     <div class="row bg-secondary text-light rounded-top">
                         <div class="col-12 align-center">
-                            <strong><span class="text-center">Temps total : <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span></strong>
+                            <strong><span
+                                        class="text-center">Temps total : <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span></strong>
                         </div>
                     </div>
                     <div class="row">
@@ -99,8 +111,7 @@
                         </div>
                         <div class="col-lg-12 pt-3">
                             <?php
-                            foreach ($data as $etape)
-                            {
+                            foreach ($data as $etape) {
                                 ?>
                                 <div class="row centerded">
                                     <h5>Etape <?= $etape['NUM'] ?> :</h5>
@@ -112,32 +123,39 @@
                                 <?php
                             }
                             ?>
-                            <div id="disqus_thread"></div>
-                            <script>
-
-                                /**
-                                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-                                var disqus_config = function () {
-                                    this.page.url = <?php  $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>;  // Replace PAGE_URL with your page's canonical URL variable
-                                    this.page.identifier = <?php  $_SERVER['REQUEST_URI']?>; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                                };
-
-                                (function() { // DON'T EDIT BELOW THIS LINE
-                                    var d = document, s = d.createElement('script');
-                                    s.src = 'https://recette-programmeur.disqus.com/embed.js';
-                                    s.setAttribute('data-timestamp', +new Date());
-                                    (d.head || d.body).appendChild(s);
-                                })();
-                            </script>
-                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12" id="disqus_thread">
+
+                </div>
+
+                <script>
+
+                    /**
+                     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+                    var disqus_config = function () {
+                        this.page.url = <?= $_SERVER['HTTP_HOST']?>;  // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.identifier = 'body'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://recette-programmeur.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                        powered by Disqus.</a></noscript>
             </div>
         </div>
 
     </div>
 </div>
+</body>
+</html>
