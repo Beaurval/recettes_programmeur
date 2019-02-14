@@ -1,5 +1,4 @@
 <?php
-session_start();
 $maliste = 'active';
 require_once 'bdd.php';
 
@@ -21,21 +20,19 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php require_once 'templates/bootstrap.php'; ?>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/logo.png">
     <title>Ma Liste de Courses</title>
 </head>
-<body>
+<body style="background-color : white;">
 <div class="container p-0">
     <?php
     $maListe = 'active';
     $liste = [];
-    require_once 'templates/navbar.php';
     if (!empty($data)) {
 
         ?>
-        <div class="bg-custom pl-2">
+        <div class=" pl-2">
             <div style="text-align:center;">
                 <h1>Liste de Courses</h1>
             </div>
@@ -89,7 +86,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                         $idRecette = $titre['ID_RECETTE'];
                         $idUser = $_SESSION['id'];
                         echo "
-                        <li class=\"list-group-item \"><a class='align-middle' href='views.php?id=$idRecette'>" . $titre['TITRE'] . "</a><a href='supprimer.php?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
+                        <li class=\"list-group-item \"><p class='align-middle' >" . $titre['TITRE'] . "</p></li>
                       ";
                     }
                     ?>
@@ -99,7 +96,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
         <?php
     } else {
         ?>
-        <div class="bg-custom p-2 col-12">
+        <div class=" p-2 col-12">
             <div class="alert alert-warning" role="alert">
                 Vous n'avez pas encore ajouté de recette à votre liste de course.
             </div>
