@@ -12,7 +12,42 @@
     require_once "classes/Recette.php";
     require_once "templates/bootstrap.php";
     require_once "templates/navbar.php";
+
+    if (!empty($_GET)) {
+
+        $req = $pdo->prepare("DELETE FROM T_COURSE WHERE ID_RECETTE = :id");
+        $req->execute(
+            array(
+                ':id' => $_GET['id'],
+            )
+        );
+
+        $req = $pdo->prepare("DELETE FROM T_INGREDIENT WHERE ID_RECETTE = :id");
+        $req->execute(
+            array(
+                ':id' => $_GET['id'],
+            )
+        );
+
+        $req = $pdo->prepare("DELETE FROM T_ETAPES WHERE ID_RECETTE = :id");
+        $req->execute(
+            array(
+                ':id' => $_GET['id'],
+            )
+        );
+
+
+        $req = $pdo->prepare("DELETE FROM T_RECETTE WHERE ID_RECETTE = :id");
+        $req->execute(
+            array(
+                ':id' => $_GET['id'],
+            )
+        );
+        header('Location: vosRecettes.php');
+
+    }
     ?>
+
     <h2>Vos recettes</h2>
     <div class="row col-12 pt-2">
 
@@ -28,7 +63,7 @@
             $temps = $test['TEMPS'];
             $cuisson = $test['CUISSON'];
             $date = $test['DATE'];
-            $obj = new Recette ($test['ID_RECETTE'],$titre, $resume, $diff, $image);
+            $obj = new Recette ($test['ID_RECETTE'], $titre, $resume, $diff, $image, 'vosRecettes.php');
             echo $obj->toHtml();
         }
 
