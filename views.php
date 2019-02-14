@@ -29,30 +29,27 @@
         if (!empty($_GET)) {
             $id = $_GET['id'];
 
-            if(isset($_GET['course'])) {
+            if (isset($_GET['course'])) {
                 $idUser = $_SESSION['id'];
 
-            $req=$pdo->query("SELECT * FROM T_COURSE WHERE ID_USER = $idUser AND ID_RECETTE = $id");
-            $verif=$req->fetchall();
+                $req = $pdo->query("SELECT * FROM T_COURSE WHERE ID_USER = $idUser AND ID_RECETTE = $id");
+                $verif = $req->fetchall();
 
-            if(empty($verif)) {
+                if (empty($verif)) {
 
-            $req = $pdo->prepare("INSERT INTO T_COURSE(ID_USER, ID_RECETTE) VALUES(?,?)");
-            $req->execute(array(
-                $idUser,
-                $id
-            ));     
-        
-        }
-        else {
-            $alert = "<div class=\"alert alert-warning\" role=\"alert\">
+                    $req = $pdo->prepare("INSERT INTO T_COURSE(ID_USER, ID_RECETTE) VALUES(?,?)");
+                    $req->execute(array(
+                        $idUser,
+                        $id
+                    ));
+
+                } else {
+                    $alert = "<div class=\"alert alert-warning\" role=\"alert\">
             Vous avez déjà ajouté cette recette !
           </div>";
-        }
+                }
 
             }
-
-
 
 
             $reponse = $pdo->query("
@@ -70,7 +67,6 @@
         WHERE T_RECETTE.ID_RECETTE=$id");
             $data2 = $reponse->fetchAll(pdo::FETCH_ASSOC);
 
-            
 
         }
 
@@ -112,24 +108,24 @@
         </div>
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
-                <h2>Ingrédients <a class="btn btn-danger" href="views.php?id=<?=$id?>&course=true"><i class="fas fa-shopping-cart"></i></a></h2>
+                <h2>Ingrédients <a class="btn btn-danger" href="views.php?id=<?= $id ?>&course=true"><i
+                                class="fas fa-shopping-cart"></i></a></h2>
                 <div>
-                <?php
-                foreach ($data2 as $etape)
-                {
-                ?>
-                <div class="row centerded">
-                    <p><?= $etape['QTE_UNITE']." de ". $etape['NOMINGREDIENT'] ?></p>
-                </div>
+                    <ul>
+                        <?php
+                        foreach ($data2 as $etape) {
+                            ?>
+                            <li><?= $etape['QTE_UNITE'] . " de " . $etape['NOMINGREDIENT'] ?></li>
 
 
-                <?php
-                }
-                ?>
+                            <?php
+                        }
+                        ?>
+                    </ul>
 
-                    
                     <?= $alert ?>
                 </div>
+
             </div>
             <div class="col-lg-8 col-md-12">
                 <h2>Préparation</h2>
