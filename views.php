@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sélection</title>
+</head>
+<body id="body">
+
+
 <div class="container">
     <?php
     /**
@@ -10,11 +22,39 @@
     require_once "bdd.php";
     require_once 'templates/navbar.php';
     require_once "classes/Recette.php";
+    $alert = "";
     ?>
     <div class="container-fluid bg-custom">
         <?php
         if (!empty($_GET)) {
             $id = $_GET['id'];
+
+            if(isset($_GET['course'])) {
+                $idUser = $_SESSION['id'];
+
+            $req=$pdo->query("SELECT * FROM T_COURSE WHERE ID_USER = $idUser AND ID_RECETTE = $id");
+            $verif=$req->fetchall();
+
+            if(empty($verif)) {
+
+            $req = $pdo->prepare("INSERT INTO T_COURSE(ID_USER, ID_RECETTE) VALUES(?,?)");
+            $req->execute(array(
+                $idUser,
+                $id
+            ));     
+        
+        }
+        else {
+            $alert = "<div class=\"alert alert-warning\" role=\"alert\">
+            Vous avez déjà ajouté cette recette !
+          </div>";
+        }
+
+            }
+
+
+
+
             $reponse = $pdo->query("
         SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NUM,CONSIGNE,NBPERSON
         FROM T_RECETTE
@@ -30,13 +70,7 @@
         WHERE T_RECETTE.ID_RECETTE=$id");
             $data2 = $reponse->fetchAll(pdo::FETCH_ASSOC);
 
-                $id = $_GET['id'];
-                $etape = $_POST['ID_INGREDIENT'];
-            $req = $pdo->prepare('INSERT INTO T_COURSE(ID_USER, ID_RECETTE, ID_INGREDIENT) VALUES(?,?');
-            $req->execute(array(
-                $_SESSION['id'],
-                $id,
-                $etape));
+            
 
         }
 
@@ -69,7 +103,7 @@
                 <i class="fas fa-calendar-week text-custom2"></i>
                 <span>
                     <?php
-                    $format = new IntlDateFormatter('fr-FR',IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
+                    $format = new IntlDateFormatter('fr-FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
                     echo $format->format(strtotime($data[0]['DATE']));
                     ?>
                 </span>
@@ -78,8 +112,8 @@
         </div>
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
-                <h2>Ingrédients</h2>
-                <form action="/view.php" method="post">
+                <h2>Ingrédients <a class="btn btn-danger" href="views.php?id=<?=$id?>&course=true"><i class="fas fa-shopping-cart"></i></a></h2>
+                <div>
                 <?php
                 foreach ($data2 as $etape)
                 {
@@ -93,15 +127,17 @@
                 }
                 ?>
 
-                    <button  type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></button>
-                </form>
+                    
+                    <?= $alert ?>
+                </div>
             </div>
             <div class="col-lg-8 col-md-12">
                 <h2>Préparation</h2>
                 <div class="col-10 mx-auto">
                     <div class="row bg-secondary text-light rounded-top">
                         <div class="col-12 align-center">
-                            <strong><span class="text-center">Temps total : <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span></strong>
+                            <strong><span
+                                        class="text-center">Temps total : <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span></strong>
                         </div>
                     </div>
                     <div class="row">
@@ -111,8 +147,7 @@
                         </div>
                         <div class="col-lg-12 pt-3">
                             <?php
-                            foreach ($data as $etape)
-                            {
+                            foreach ($data as $etape) {
                                 ?>
                                 <div class="row centerded">
                                     <h5>Etape <?= $etape['NUM'] ?> :</h5>
@@ -128,7 +163,35 @@
                     </div>
                 </div>
             </div>
+            <div class="row col-12">
+                <div class="col-12" id="disqus_thread">
+
+                </div>
+
+                <script>
+
+                    /**
+                     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+                    var disqus_config = function () {
+                        this.page.url = <?= $_SERVER['HTTP_HOST']?>;  // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.identifier = 'body'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://recette-programmeur.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                        powered by Disqus.</a></noscript>
+            </div>
         </div>
 
     </div>
 </div>
+</body>
+</html>

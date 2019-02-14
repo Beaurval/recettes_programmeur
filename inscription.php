@@ -1,32 +1,19 @@
 <?php
-session_start();
-require_once 'bdd.php';
+/**
+ * Created by PhpStorm.
+ * User: Valentin Beaury
+ * Date: 13/02/2019
+ * Time: 16:09
+ */
 
 
 
-if (!empty($_POST)) {
-    $login = $_POST['login'];
-    $mdp = $_POST['mdp'];
-    $rep = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'");
-    $data = $rep->fetchAll(PDO::FETCH_ASSOC);
-    if (!empty($data))
-    {
-        if ($data[0]['MDP'] === $mdp && $data[0]['LOGIN'] === $login)
-        {
-            $_SESSION['succes'] = true;
-            $_SESSION['id'] = $data[0]['ID_USER'];
-
-            if ($data[0]['DROITS'] == 10)
-            {
-                $_SESSION['admin'] = true;
-            }
-
-            header('Location: index.php');
-        }
-    }
-
+if (!empty($_POST))
+{
+    $pdo->prepare("INSERT INTO T_USER VALUES()");
 }
 ?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -47,14 +34,18 @@ if (!empty($_POST)) {
         <div class="form-group">
             <label for="exampleInputEmail1">Identifiant</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                   placeholder="Entrez votre identifiant" name="login" required>
+                   placeholder="Choisir votre identifiant" name="login" required>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1"
-                   placeholder="Entrez votre mot de passe" name="mdp" required>
+                   placeholder="Choisir votre mot de passe" name="mdp" required>
         </div>
-        <a href="inscription.php">S'inscrire</a>
-        <button type="submit" class="btn btn-danger btn-block">Envoyer</button>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Confirmation</label>
+            <input type="password" class="form-control" id="exampleInputPassword1"
+                   placeholder="Confirmer" name="mdp2" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn-block">S'inscrire</button>
     </form>
 </div>

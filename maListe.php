@@ -3,7 +3,7 @@ session_start();
 $maliste = 'active';
 require_once 'bdd.php';
 
-if (!empty($_GET)) {
+
 
     $id = $_SESSION["id"];
 
@@ -13,7 +13,7 @@ if (!empty($_GET)) {
     WHERE ID_USER = $id
     ORDER BY NOMINGREDIENT");
     $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
-}
+
 
 ?>
 

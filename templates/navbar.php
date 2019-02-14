@@ -15,6 +15,8 @@ if (!isset($maListe))
     $maListe = '';
 if (!isset($maListe))
     $maListe = '';
+if (!isset($admin))
+    $admin = '';
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-custom border-bottom">
@@ -72,12 +74,20 @@ if (!isset($maListe))
                     <a class="nav-link " href="ajouter.php">Ajouter une recette</a>
                 </li>
                 <li class="nav-item <?= $vosRecettes?>">
-                    <a class="nav-link " href="vosRecettes.php">Vos recettes</a>
+                    <a class="nav-link " href="vosRecettes.php">Mes recettes</a>
                 </li>
                 <li class="nav-item <?= $maListe?>">
                     <a class="nav-link " href="maListe.php">Ma Liste de Courses</a>
                 </li>
                 <?php
+                if (isset($_SESSION['admin']))
+                echo
+                "<li class=\"nav-item <?= $admin?>\">
+                    <a class=\"nav-link \" href=\"admin.php\">Espace admin</a>
+                </li>
+                ";
+
+
             }
             ?>
         </ul>
