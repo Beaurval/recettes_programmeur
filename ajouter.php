@@ -88,7 +88,7 @@ if (!empty($_POST)) {
         $req = $pdo->prepare('INSERT INTO T_INGREDIENT(ID_RECETTE,QTE_UNITE ,NOMINGREDIENT) VALUES(?,?,?)');
         $req->execute(array(
             $lastId,
-            utf8_encode($_POST['QTE_UNITE'][$nbIngredient]),
+            $_POST['QTE_UNITE'][$nbIngredient],
             $ingredient
         ));
         $nbIngredient++;
@@ -237,7 +237,7 @@ if (!empty($_POST)) {
 </div>
 <script>
     $(document).ready(function () {
-        var max_fields = 10; //maximum input boxes allowed
+        var max_fields = 15; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var add_button = $(".add_field_button"); //Add button ID
 
