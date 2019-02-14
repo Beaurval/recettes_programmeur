@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -18,11 +19,8 @@
      * Date: 11/02/2019
      * Time: 11:27
      */
-    session_start();
     require_once "bdd.php";
-    require_once 'templates/navbar.php';
     require_once "classes/Recette.php";
-    require_once 'templates/bootstrap.php';
     $alert = "";
     ?>
     <div class="container-fluid bg-custom">
@@ -185,28 +183,6 @@
                 <div class="col-12" id="disqus_thread">
 
                 </div>
-
-                <script>
-
-                    /**
-                     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-                    var disqus_config = function () {
-                        this.page.url = <?= $_SERVER['HTTP_HOST']?>;  // Replace PAGE_URL with your page's canonical URL variable
-                        this.page.identifier = 'body'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                    };
-
-                    (function () { // DON'T EDIT BELOW THIS LINE
-                        var d = document, s = d.createElement('script');
-                        s.src = 'https://recette-programmeur.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', +new Date());
-                        (d.head || d.body).appendChild(s);
-                    })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
-                        powered by Disqus.</a></noscript>
-            </div>
         </div>
 
     </div>
