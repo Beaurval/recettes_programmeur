@@ -5,12 +5,47 @@
  * Date: 13/02/2019
  * Time: 16:09
  */
-
-
+require_once 'bdd.php';
+$erreur = '';
 
 if (!empty($_POST))
 {
-    $pdo->prepare("INSERT INTO T_USER VALUES()");
+    $login = $_POST['login'];
+    $req = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'");
+    $data = $req->fetchAll();
+
+    if ($_POST['mdp1'] == $_POST['mdp2'] && empty($data))
+    {
+        $req = $pdo->prepare("INSERT INTO T_USER(NOM,PRENOM,LOGIN,MDP,DROITS,MAIL) VALUES(?,?,?,?,1,?)");
+        $req->execute(
+            array(
+                $_POST['nom'],
+                $_POST['prenom'],
+                $_POST['login'],
+                $_POST['mdp1'],
+                $_POST['mail']
+            )
+        );
+    }
+    else
+    {
+        if (!empty($data))
+        {
+            $erreur = "
+                    <div class=\"alert alert-danger mt-2\" role=\"alert\">
+                      Login déja utilisé.
+                    </div>
+                  ";
+        }
+        else{
+            $erreur = "
+                    <div class=\"alert alert-danger mt-2\" role=\"alert\">
+                      Les mots de passe ne sont pas identiques.
+                    </div>
+                  ";
+        }
+
+    }
 }
 ?>
 
@@ -30,7 +65,22 @@ if (!empty($_POST))
 <div class="container bg-custom p-3">
     <?php require_once 'templates/navbar.php'; ?>
 
-    <form class="mx-auto col-4  m-2 p-3 border" action="connexion.php" method="post">
+    <form class="mx-auto col-4  m-2 p-3 border" action="inscription.php" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Nom</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Indiquez votre nom" name="nom" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Prenom</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Indiquez votre prenom" name="prenom" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">E-mail</label>
+            <input type="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Indiquez votre e-mail" name="mail" required>
+        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Identifiant</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -39,7 +89,7 @@ if (!empty($_POST))
         <div class="form-group">
             <label for="exampleInputPassword1">Mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1"
-                   placeholder="Choisir votre mot de passe" name="mdp" required>
+                   placeholder="Choisir votre mot de passe" name="mdp1" required>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Confirmation</label>
@@ -47,5 +97,6 @@ if (!empty($_POST))
                    placeholder="Confirmer" name="mdp2" required>
         </div>
         <button type="submit" class="btn btn-danger btn-block">S'inscrire</button>
+        <?= $erreur ?>
     </form>
 </div>
