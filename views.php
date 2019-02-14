@@ -108,8 +108,14 @@
         </div>
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
-                <h2>Ingrédients <a class="btn btn-danger" href="views.php?id=<?= $id ?>&course=true"><i
-                                class="fas fa-shopping-cart"></i></a></h2>
+                <h2>Ingrédients <?php
+                    if (isset($_SESSION['id']))
+                        echo
+                    "
+<a class=\"btn btn-danger\" href=\"views.php?id=$id&course=true\">
+<i class=\"fas fa-shopping-cart\"></i></a>";
+                    ?>
+                </h2>
                 <div>
                     <ul>
                         <?php

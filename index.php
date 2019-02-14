@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="container">
+    <a href="mailto:?&body=Regarde%20la%20recette%20que%20j'ai%20découvert%20!%20Miam%20!%20<?= $_SERVER['HTTP_HOST'] ?>">Partager</a>
     <?php
     session_start();
     $nosRecettes = 'active';
