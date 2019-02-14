@@ -23,19 +23,18 @@
     <article class="bg-custom col-12">
         <h2 class="text-custom">Nos recettes</h2>
         <?php
-        $nb=0;
+        $nb = 0;
         $nbObjets = 0;
         foreach ($datas as $data) {
-            if ($nb ==0)
+            if ($nb == 0)
                 echo "<div class=\"row col-12 ligne\">";
 
-            $obj = new Recette($data['ID_RECETTE'],$data['TITRE'], $data['RESUME'], $data['DIFFICULTE'], $data['IMAGE']);
+            $obj = new Recette($data['ID_RECETTE'], $data['TITRE'], $data['RESUME'], $data['DIFFICULTE'], $data['IMAGE']);
             echo $obj->toHtml();
 
             $nb++;
             $nbObjets++;
-            if ($nb == 6 || $nbObjets == count($datas))
-            {
+            if ($nb == 6 || $nbObjets == count($datas)) {
                 echo "</div>";
                 $nb = 0;
             }
@@ -47,8 +46,7 @@
                 <ul class="pagination">
                     <li class="page-item active"><a class="page-link active" onclick="pagination(1)">1</a></li>
                     <?php
-                    for ($i=2; $i<=round($nbObjets/6); $i++)
-                    {
+                    for ($i = 2; $i <= round($nbObjets / 6); $i++) {
                         echo "<li class=\"page-item\"><a class=\"page-link\" onclick=\"pagination($i)\">$i</a></li>";
                     }
                     ?>
