@@ -85,7 +85,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                         $idRecette = $titre['ID_RECETTE'];
                         $idUser = $_SESSION['id'];
                         echo "
-                        <li class=\"list-group-item \">" . $titre['TITRE'] . "<a href='supprimer.php?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
+                        <li class=\"list-group-item \"><a class='align-middle' href='views.php?id=$idRecette'>" . $titre['TITRE'] . "</a><a href='supprimer.php?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
                       ";
                     }
                     ?>
