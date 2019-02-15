@@ -72,7 +72,7 @@
         }
 
         ?>
-        <h1 class="titre text-custom"><?= utf8_encode($data[0]['TITRE']) ?></h1>
+        <h1 class="titre text-custom"><?= $data[0]['TITRE'] ?></h1>
         
         <div class="row pt-3 border-top">
             <div class="ml-2">
