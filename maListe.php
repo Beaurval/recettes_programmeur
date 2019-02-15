@@ -5,7 +5,7 @@ require_once 'bdd.php';
 
 
 $id = $_SESSION["id"];
-
+// Requête qui va chercher les donnés de QTE_UNITE, NOMINGREDIENT et ID_RECETTE selon l'utilisateur qui est connecté dans la Vue_Ingredients, trié par ordre alphabétique
 $reponse = $pdo->query("
     SELECT QTE_UNITE, NOMINGREDIENT,ID_RECETTE
     FROM Vue_Ingredients
@@ -32,6 +32,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
     $maListe = 'active';
     $liste = [];
     require_once 'templates/navbar.php';
+    // S'il y a une $data non-vide alors on rentre dans la condition
     if (!empty($data)) {
 
         ?>
@@ -40,7 +41,8 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                 <h1>Liste de Courses</h1>
             </div>
             <div>
-                <h2 class="txt-none">Les ingrédients            
+                <h2 class="txt-none">Les ingrédients   
+                    <!-- Bouton pour exporter en fichier PDF -->         
                     <a class="btn btn-danger" href="convertPdfCourse.php?id=<?=$_SESSION['id'] ?>">
                         <i class="fas fa-file-pdf"></i>
                     </a>
@@ -49,8 +51,10 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                     <?php
 
                     foreach ($data as $recette) {
+                        // Boucle qui liste les ingrédients
                         $liste[] = $recette['ID_RECETTE'];
                         if ($recette['QTE_UNITE'] != '')
+                        // s'il n'y a pas de QTE_UNITE alors on n'affiche pas " de "
                             $texte = $recette["QTE_UNITE"] . ' de ' . $recette['NOMINGREDIENT'];
                         else
                             $texte = $recette['NOMINGREDIENT'];
@@ -88,6 +92,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                     foreach ($data as $titre) {
                         $idRecette = $titre['ID_RECETTE'];
                         $idUser = $_SESSION['id'];
+                        // bouton pour supprimer une liste de courses
                         echo "
                         <li class=\"list-group-item \"><a class='align-middle' href='views.php?id=$idRecette'>" . $titre['TITRE'] . "</a><a href='supprimer.php?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
                       ";

@@ -26,7 +26,7 @@
         <?php
         require_once "templates/navbar.php";
         if (!empty($_GET)) {
-
+// Requêtes qui permettent de supprimer les recettes qui appartiennent à l'utilisateur
             $req = $pdo->prepare("DELETE FROM T_COURSE WHERE ID_RECETTE = :id");
             $req->execute(
                 array(
@@ -62,7 +62,7 @@
 
         <h2>Vos recettes</h2>
         <div class="row col-12 pt-2">
-
+<!-- Requêtes qui affichent les recettes que l'utilisateur à ajouter -->
             <?php
             $id = $_SESSION['id'];
             $reponse = $pdo->query("SELECT * FROM T_RECETTE where ID_user='$id'");
@@ -83,6 +83,7 @@
                 ?>
                 <div class="bg-custom p-2 col-12">
                     <div class="alert alert-warning" role="alert">
+                        <!-- Et si l'utilisateur n'a pas ajouté de recette on l'invite à le faire :) -->
                         Vous n'avez pas de recettes, vous pouvez en ajouter une dans l'onglet : "Ajouter une recette" !
                     </div>
                 </div>
