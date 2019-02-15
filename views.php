@@ -134,11 +134,16 @@
                 </h2>
                 <div>
                     <ul>
-                        <?php
-                        foreach ($data2 as $etape) {
-                            ?>
-                            <li><?= $etape['QTE_UNITE'] . " de " . $etape['NOMINGREDIENT'] ?></li>
+<?php
 
+foreach ($data2 as $etape) {
+    
+    if ($etape['QTE_UNITE'] != '')
+        echo '<li>' . $etape["QTE_UNITE"] . ' de ' . $etape['NOMINGREDIENT'] . '</li>';
+    else
+        echo '<li>' . $etape['NOMINGREDIENT'] . '</li>';
+
+    ?>
 
                             <?php
                         }
