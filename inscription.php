@@ -6,15 +6,17 @@
  * Time: 16:09
  */
 require_once 'bdd.php';
+
+//Gestion des bandeau d'erreur
 $erreur = '';
 
 if (!empty($_POST))
 {
     $login = $_POST['login'];
-    $req = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'");
+    $req = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'"); //Requête qui vérifie si l'utilisateur existe déjà
     $data = $req->fetchAll();
 
-    if ($_POST['mdp1'] == $_POST['mdp2'] && empty($data))
+    if ($_POST['mdp1'] == $_POST['mdp2'] && empty($data)) //On vérifie que les mots de passes sont i
     {
         $req = $pdo->prepare("INSERT INTO T_USER(NOM,PRENOM,LOGIN,MDP,DROITS,MAIL) VALUES(?,?,?,?,1,?)");
         $req->execute(
@@ -27,9 +29,9 @@ if (!empty($_POST))
             )
         );
     }
-    else
+    else //Si pas identiques ou utilisateur existant et affichage d'un message en fonction de l'erreur
     {
-        if (!empty($data))
+        if (!empty($data)) //on vérifie si c'est le login qui est déja utilisé
         {
             $erreur = "
                     <div class=\"alert alert-danger mt-2\" role=\"alert\">
@@ -37,6 +39,7 @@ if (!empty($_POST))
                     </div>
                   ";
         }
+        //Sinon c'est le mot de passe
         else{
             $erreur = "
                     <div class=\"alert alert-danger mt-2\" role=\"alert\">
@@ -65,6 +68,7 @@ if (!empty($_POST))
 <div class="container bg-custom p-3">
     <?php require_once 'templates/navbar.php'; ?>
 
+    <!-- Formulaire d'insription -->
     <form class="mx-auto col-4  m-2 p-3 border" action="inscription.php" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Nom</label>
@@ -97,6 +101,6 @@ if (!empty($_POST))
                    placeholder="Confirmer" name="mdp2" required>
         </div>
         <button type="submit" class="btn btn-danger btn-block">S'inscrire</button>
-        <?= $erreur ?>
+        <?= $erreur ?> <!-- Affichage de l'erreur -->
     </form>
 </div>

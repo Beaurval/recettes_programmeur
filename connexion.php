@@ -4,24 +4,28 @@ require_once 'bdd.php';
 
 
 
-if (!empty($_POST)) {
+if (!empty($_POST))
+{
+    //Récupération des infos
     $login = $_POST['login'];
     $mdp = $_POST['mdp'];
+
+    //requête pour voir si l'utilisateur existe
     $rep = $pdo->query("SELECT * FROM T_USER WHERE LOGIN = '$login'");
     $data = $rep->fetchAll(PDO::FETCH_ASSOC);
     if (!empty($data))
     {
-        if ($data[0]['MDP'] === $mdp && $data[0]['LOGIN'] === $login)
+        if ($data[0]['MDP'] === $mdp && $data[0]['LOGIN'] === $login) //si le mot de passe est bon
         {
-            $_SESSION['succes'] = true;
-            $_SESSION['id'] = $data[0]['ID_USER'];
+            $_SESSION['succes'] = true; //On connecte l'utilisateur
+            $_SESSION['id'] = $data[0]['ID_USER']; //et on récupère son id
 
-            if ($data[0]['DROITS'] == 10)
+            if ($data[0]['DROITS'] == 10) //Si il est admin on le retient
             {
                 $_SESSION['admin'] = true;
             }
 
-            header('Location: index.php');
+            header('Location: index.php'); //redirection
         }
     }
 
@@ -43,6 +47,7 @@ if (!empty($_POST)) {
 <div class="container bg-custom p-3">
     <?php require_once 'templates/navbar.php'; ?>
 
+    <!-- Formulaire de connexion -->
     <form class="mx-auto col-4  m-2 p-3 border" action="connexion.php" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Identifiant</label>
