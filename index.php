@@ -46,7 +46,7 @@
                 <ul class="pagination">
                     <li class="page-item active"><a class="page-link active" onclick="pagination(1)">1</a></li>
                     <?php
-                    for ($i = 2; $i <= round($nbObjets / 6); $i++) {
+                    for ($i = 2; $i <= ceil($nbObjets / 6); $i++) {
                         echo "<li class=\"page-item\"><a class=\"page-link\" onclick=\"pagination($i)\">$i</a></li>";
                     }
                     ?>
