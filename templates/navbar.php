@@ -82,7 +82,7 @@ if (!isset($admin))
                 <?php
                 if (isset($_SESSION['admin']))
                 echo
-                "<li class=\"nav-item <?= $admin?>\">
+                "<li class=\"nav-item $admin\">
                     <a class=\"nav-link \" href=\"admin.php\">Espace admin</a>
                 </li>
                 ";
