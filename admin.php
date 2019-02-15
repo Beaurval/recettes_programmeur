@@ -24,6 +24,8 @@
 <div class="container bg-custom p-0">
     <?php
     require_once "templates/navbar.php";
+
+    //Gestion des requêtes pour supprimer la recette demandée
     if (!empty($_GET)) {
 
         $req = $pdo->prepare("DELETE FROM T_COURSE WHERE ID_RECETTE = :id");
