@@ -20,7 +20,7 @@ class Recette
             $this->difficulte = $difficulte;
 
         elseif ($difficulte < 1)
-            $this->difficulte = 1;
+            $this->difficulte = 0;
 
         else
             $this->difficulte = 5;
@@ -119,9 +119,16 @@ class Recette
 
         if ($this->bouton != '')
         {
-            $bouton = "<a class='btn btn-danger ml-5' href='$this->bouton?id=$this->idRecette'>Supprimer</a>";
+            $bouton = "<a class='btn btn-danger ' href='$this->bouton?id=$this->idRecette'>Supprimer</a>";
         }
 
+        if ($this->difficulte != 0)
+        {
+            $difficulte = "<label for=\"\">Difficulté : &nbsp</label>
+                            $etoiles";
+        }
+        else
+            $difficulte = '';
 
         return
             "
@@ -132,9 +139,8 @@ class Recette
                     <div class=\"card-body\">
                         <h5 class=\"card-title\">$this->titre</h5>
                         <p class=\"card-text\">$this->description</p>
-                        <div class=\"centerded\">
-                            <label for=\"\">Difficulté : &nbsp</label>
-                            $etoiles
+                        <div class=\"row centerded\">
+                            $difficulte
                              $bouton 
                         </div>    
                     </div>

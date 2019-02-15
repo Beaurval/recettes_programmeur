@@ -77,7 +77,7 @@
                 $temps = $test['TEMPS'];
                 $cuisson = $test['CUISSON'];
                 $date = $test['DATE'];
-                $obj = new Recette ($test['ID_RECETTE'], $titre, $resume, $diff, $image, 'vosRecettes.php');
+                $obj = new Recette ($test['ID_RECETTE'], $titre, $resume, 0, $image, 'vosRecettes.php');
                 echo $obj->toHtml();
             }
         } else {
