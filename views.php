@@ -27,23 +27,29 @@
     ?>
     <div class="container-fluid bg-custom">
         <?php
+        // si le GET n'est pas vide
         if (!empty($_GET)) {
+
             $id = $_GET['id'];
-
+            // Recuperer la recette pour le mettre dans la liste de course
+            // si le GET vaut course
             if (isset($_GET['course'])) {
+                // idUser vaut l'id de la session
                 $idUser = $_SESSION['id'];
-
+                //on recupère les infos de T_course où l'ID_USER vaut idUser et ID_RECETTE id pour verifier que la liste n'existe pas déjà
                 $req = $pdo->query("SELECT * FROM T_COURSE WHERE ID_USER = $idUser AND ID_RECETTE = $id");
                 $verif = $req->fetchall();
 
+                //si les infos recupérés sont vides (les infos ne sont pas déjà dans la liste de course)
                 if (empty($verif)) {
-
+                    //on rentre dans T_COURSE les infos idUser et id
                     $req = $pdo->prepare("INSERT INTO T_COURSE(ID_USER, ID_RECETTE) VALUES(?,?)");
                     $req->execute(array(
                         $idUser,
                         $id
                     ));
 
+                    // si l'utilisateur a déjà ajouter une recette, afficher un message d'erreur
                 } else {
                     $alert = "<div class=\"alert alert-warning\" role=\"alert\">
             Vous avez déjà ajouté cette recette !
@@ -52,7 +58,7 @@
 
             }
 
-
+            //recuperer les infos des tables T_RECETTE et T_ETAPES
             $reponse = $pdo->query("
         SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NUM,CONSIGNE,NBPERSON
         FROM T_RECETTE
@@ -60,7 +66,7 @@
         WHERE T_RECETTE.ID_RECETTE=$id
         ORDER BY NUM");
             $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
-
+            //recuperer les infos des tables T_RECETTE et T_INGREDIENT
             $reponse = $pdo->query("
         SELECT IMAGE,TITRE,RESUME,DIFFICULTE,CUISSON,TEMPS,DATE,NBPERSON,QTE_UNITE,NOMINGREDIENT,T_RECETTE.ID_RECETTE
         FROM T_RECETTE
@@ -115,6 +121,7 @@
                 <i class="fas fa-calendar-week text-custom2"></i>
                 <span>
                     <?php
+                    //mettre la date au bon format avant de l'afficher
                     $format = new IntlDateFormatter('fr-FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
                     echo $format->format(strtotime($data[0]['DATE']));
                     ?>
@@ -125,6 +132,7 @@
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
                 <h2>Ingrédients <?php
+                    // verifier si l'utilisateur est connecté, pour savoir s'il peut rajouter la liste des ingredients à sa liste de course
                     if (isset($_SESSION['id']))
                         echo
                     "
@@ -186,6 +194,7 @@ foreach ($data2 as $etape) {
                     </div>
                 </div>
             </div>
+        <!-- le code du disqus pour les commentaires           -->
             <div class="row col-12">
                 <div class="col-12" id="disqus_thread">
 
