@@ -16,7 +16,7 @@ use Dompdf\Options;
 
 
 
-//$filecontent = file_get_contents('viewsdom.php');
+// Utilisation du paquet DomPdf qui permet l'export en fichier PDF
 
 
 $options = new Options();
