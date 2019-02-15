@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/viewsdom.css">
     <title>Sélection</title>
 </head>
 <body style="background-color : white;">
@@ -83,28 +83,15 @@
                 <p><?= $data[0]['RESUME'] ?></p>
             </div>
         </div>
-        <div class="row">
-                    <div class="col-10">
-                    </div>
-                    <div classs="col-1">
-                        <a class="btn btn-danger" href="mailto:?subject=Viens%20voir%20cette%20recette%20!&body=Salut,%0D%0ARegarde%20cette%20magnifique%20recette%20:%20recettes_programmeur.dev/views.php?id=<?=$id?>">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                    <div class="col-1">
-                        <a class="btn btn-danger" href="convertPdf.php?id=<?=$_GET['id'] ?>">
-                            <i class="fas fa-file-pdf"></i>
-                        </a>
-                    </div>
                 </div>
-        <div class="row centerded mt-2" style="font-size: 1.4em">
+        <div class="centerded mt-2" style="font-size: 1.4em">
             <div class="col-2 border-right">
                 <span><i class="text-custom2 fas fa-stopwatch"></i> <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span>
             </div>
-            <div class="col-2 border-right">
+            <div class="border-right">
                 <span><strong class="text-custom2"><?= $data[0]['NBPERSON'] ?></strong> personnes</span>
             </div>
-            <div class="col-3 progress p-0 ml-3">
+            <div class="progress p-0 ml-3">
                 <div class="progress-bar ?> bg-danger" role="progressbar"
                      style="width: <?= ($data[0]['DIFFICULTE'] * 20) ?>%"
                      aria-valuenow="<?= ($data[0]['DIFFICULTE'] * 20) ?>" aria-valuemin="0" aria-valuemax="5">Difficulté
@@ -117,7 +104,7 @@
                     $format = new IntlDateFormatter('fr-FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
                     echo $format->format(strtotime($data[0]['DATE']));
                     ?>
-                </span>
+                </span><br>
 
             </div>
         </div>
@@ -130,7 +117,7 @@
 <a class=\"btn btn-danger\" href=\"views.php?id=$id&course=true\">
 <i class=\"fas fa-shopping-cart\"></i></a>";
                     ?>
-                </h2>
+                </h2><br>
                 <div>
                     <ul>
                         <?php
