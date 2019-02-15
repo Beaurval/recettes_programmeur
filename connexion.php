@@ -25,7 +25,7 @@ if (!empty($_POST))
                 $_SESSION['admin'] = true;
             }
 
-            header('Location: index.php'); //redirection
+            header('Location: index'); //redirection
         }
     }
 

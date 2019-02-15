@@ -43,7 +43,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
             <div>
                 <h2 class="txt-none">Les ingrédients   
                     <!-- Bouton pour exporter en fichier PDF -->         
-                    <a class="btn btn-danger" href="convertPdfCourse.php?id=<?=$_SESSION['id'] ?>">
+                    <a class="btn btn-danger" href="convertPdfCourse?id=<?=$_SESSION['id'] ?>">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                 </h2>
@@ -94,7 +94,7 @@ $data = $reponse->fetchAll(pdo::FETCH_ASSOC);
                         $idUser = $_SESSION['id'];
                         // bouton pour supprimer une liste de courses
                         echo "
-                        <li class=\"list-group-item \"><a class='align-middle' href='views.php?id=$idRecette'>" . $titre['TITRE'] . "</a><a href='supprimer.php?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
+                        <li class=\"list-group-item \"><a class='align-middle' href='views?id=$idRecette'>" . $titre['TITRE'] . "</a><a href='supprimer?cible=maListe&idRecette=$idRecette&idUser=$idUser' class=\"btn btn-danger float-right\">Supprimer</a></li>
                       ";
                     }
                     ?>

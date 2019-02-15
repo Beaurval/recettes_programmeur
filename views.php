@@ -94,12 +94,12 @@
                     <div class="col-10">
                     </div>
                     <div classs="col-1">
-                        <a class="btn btn-danger" href="mailto:?subject=Viens%20voir%20cette%20recette%20!&body=Salut,%0D%0ARegarde%20cette%20magnifique%20recette%20:%20recettes_programmeur.dev/views.php?id=<?=$id?>">
+                        <a class="btn btn-danger" href="mailto:?subject=Viens%20voir%20cette%20recette%20!&body=Salut,%0D%0ARegarde%20cette%20magnifique%20recette%20:%20recettes_programmeur.dev/views?id=<?=$id?>">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
                     <div class="col-1">
-                        <a class="btn btn-danger" href="convertPdf.php?id=<?=$_GET['id'] ?>">
+                        <a class="btn btn-danger" href="convertPdf?id=<?=$_GET['id'] ?>">
                             <i class="fas fa-file-pdf"></i>
                         </a>
                     </div>
@@ -136,7 +136,7 @@
                     if (isset($_SESSION['id']))
                         echo
                     "
-<a class=\"btn btn-danger\" href=\"views.php?id=$id&course=true\">
+<a class=\"btn btn-danger\" href=\"views?id=$id&course=true\">
 <i class=\"fas fa-shopping-cart\"></i></a>";
                     ?>
                 </h2>

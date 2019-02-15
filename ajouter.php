@@ -117,7 +117,7 @@ if (!empty($_POST)) {
     require_once 'templates/navbar.php';
     ?>
     <div class="row col-12 bg-custom m-0">
-        <form action="ajouter.php" method="POST" class="col-8 mx-auto" enctype="multipart/form-data">
+        <form action="ajouter" method="POST" class="col-8 mx-auto" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="titre">Titre</label>
                 <input required type="text" class="form-control" id="titre" aria-describedby="emailHelp" name="TITRE"

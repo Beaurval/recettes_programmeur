@@ -22,11 +22,11 @@ if (!empty($_GET))
             )
         );
         //retour a la liste de course
-        header('Location: maListe.php');
+        header('Location: maListe');
     }
 }
 else
 {
     // retour à la page d'acceuil
-    header('Location: index.php');
+    header('Location: index');
 }

@@ -133,7 +133,7 @@ class Recette
         return
             "
         <div class=\"zoom col-xl-4 col-md-6 col-sm-12 mb-4\">
-             <a class='text-normal' href='views.php?id=$this->idRecette'>
+             <a class='text-normal' href='views?id=$this->idRecette'>
                 <div class=\"cardHeight card\">
                     <img src=\"$this->path\" class=\"myNewDivHeight card-img-top\" alt=\"...\">
                     <div class=\"card-body\">
