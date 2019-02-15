@@ -10,14 +10,13 @@ $vosRecettes = 'active';
 require_once "bdd.php";
 require_once "classes/Recette.php";
 require_once "templates/bootstrap.php";
-require_once "templates/navbar.php";
-
-
 ?>
-<h2>Votre recherche</h2>
-<div class="row col-12 pt-2">
 
+
+<div class="container bg-custom">
+    <h2>Votre recherche</h2>
     <?php
+    require_once "templates/navbar.php";
     $rech=$_GET['rechercher'];
     $req = $pdo->query('SELECT * FROM T_RECETTE WHERE TITRE LIKE "%'.$rech.'%" order by TITRE');
     $test1 = $req->fetchAll(pdo::FETCH_ASSOC);
@@ -35,5 +34,4 @@ require_once "templates/navbar.php";
 
 
     ?>
-</div>
 </div>

@@ -21,10 +21,6 @@
     <title>Espace admin</title>
 </head>
 <body>
-
-</body>
-</html>
-<body>
 <div class="container bg-custom p-0">
     <?php
     require_once "templates/navbar.php";
@@ -96,3 +92,4 @@
     </div>
 </div>
 </body>
+</html>
