@@ -1,3 +1,6 @@
+RewriteEngine On
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
 # Personnalisation de l'erreur 404
 ErrorDocument 404 /erreurs/erreur_404.php

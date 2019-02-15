@@ -69,7 +69,7 @@ if (!empty($_POST))
     <?php require_once 'templates/navbar.php'; ?>
 
     <!-- Formulaire d'insription -->
-    <form class="mx-auto col-4  m-2 p-3 border" action="inscription.php" method="post">
+    <form class="mx-auto col-4  m-2 p-3 border" action="inscription" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Nom</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"

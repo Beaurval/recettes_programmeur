@@ -21,7 +21,7 @@ if (!isset($admin))
 
 <nav class="navbar navbar-expand-lg navbar-light bg-custom border-bottom">
     <div class="titre ">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand" href="index">
             <img src="assets/logo.png" width="100" height="80" class="d-inline-block align-top" alt="logo">
         </a>
         <label class="text-custom">Les recettes pour tous</label>
@@ -33,7 +33,7 @@ if (!isset($admin))
     </button>
 
     <div class="mx-auto col-xl-9 col-sm-4">
-        <form action="rechercher.php">
+        <form action="rechercher">
         <div class="input-group mb-3">
             <input type="text" name="rechercher" class="form-control" placeholder="Rechercher" aria-label="Rechercher" aria-describedby="basic-addon2">
             <div class="input-group-append">
@@ -47,14 +47,14 @@ if (!isset($admin))
         <?php
         if (!isset($_SESSION['succes'])) {
             ?>
-            <a id='login' href="connexion.php" class="btn btn-success text-light rounded-pill">
+            <a id='login' href="connexion" class="btn btn-success text-light rounded-pill">
                 <i class="fas fa-user"></i>
             </a>
             <label class="text-custom" for="login">Connexion</label>
             <?php
         } else {
             ?>
-            <a href="logout.php" class="btn btn-danger text-light rounded-pill">
+            <a href="logout" class="btn btn-danger text-light rounded-pill">
                 <i class="fas fa-sign-out-alt"></i>
             </a>
             <label class="text-custom" for="login">Déconnexion</label>
@@ -70,24 +70,24 @@ if (!isset($admin))
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <?= $nosRecettes?>">
-                <a class="nav-link " href="index.php">Nos recettes<span class="sr-only">(current)</span></a>
+                <a class="nav-link " href="index">Nos recettes<span class="sr-only">(current)</span></a>
             </li>
             <?php if (isset($_SESSION['succes'])) {
                 ?>
                 <li class="nav-item <?= $ajouter?>">
-                    <a class="nav-link " href="ajouter.php">Ajouter une recette</a>
+                    <a class="nav-link " href="ajouter">Ajouter une recette</a>
                 </li>
                 <li class="nav-item <?= $vosRecettes?>">
-                    <a class="nav-link " href="vosRecettes.php">Mes recettes</a>
+                    <a class="nav-link " href="vosRecettes">Mes recettes</a>
                 </li>
                 <li class="nav-item <?= $maListe?>">
-                    <a class="nav-link " href="maListe.php">Ma Liste de Courses</a>
+                    <a class="nav-link " href="maListe">Ma Liste de Courses</a>
                 </li>
                 <?php
                 if (isset($_SESSION['admin']))
                 echo
                 "<li class=\"nav-item $admin\">
-                    <a class=\"nav-link \" href=\"admin.php\">Espace admin</a>
+                    <a class=\"nav-link \" href=\"admin\">Espace admin</a>
                 </li>
                 ";
 

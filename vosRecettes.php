@@ -55,7 +55,7 @@
                     ':id' => $_GET['id'],
                 )
             );
-            header('Location: vosRecettes.php');
+            header('Location: vosRecettes');
 
         }
         ?>
@@ -76,7 +76,7 @@
                     $temps = $test['TEMPS'];
                     $cuisson = $test['CUISSON'];
                     $date = $test['DATE'];
-                    $obj = new Recette ($test['ID_RECETTE'], $titre, $resume, $diff, $image, 'vosRecettes.php');
+                    $obj = new Recette ($test['ID_RECETTE'], $titre, $resume, $diff, $image, 'vosRecettes');
                     echo $obj->toHtml();
                 }
             } else {
