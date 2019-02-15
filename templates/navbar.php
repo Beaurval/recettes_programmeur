@@ -33,9 +33,13 @@ if (!isset($admin))
     </button>
 
     <div class="mx-auto col-xl-9 col-sm-4">
-        <form class="form-inline">
-            <input class="form-control rounded-pill col-12" type="search" placeholder="Chercher une recette"
-                   aria-label="Search">
+        <form action="rechercher.php">
+        <div class="input-group mb-3">
+            <input type="text" name="rechercher" class="form-control" placeholder="Rechercher" aria-label="Rechercher" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="input-group-text" id="basic-addon2" type="submit" formmethod="get" > <i class="fas fa-search"></i> </button>
+            </div>
+        </div>
         </form>
     </div>
 
