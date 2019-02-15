@@ -22,6 +22,7 @@
     require_once "bdd.php";
     require_once 'templates/navbar.php';
     require_once "classes/Recette.php";
+    require_once 'templates/bootstrap.php';
     $alert = "";
     ?>
     <div class="container-fluid bg-custom">
@@ -71,7 +72,8 @@
         }
 
         ?>
-        <h1 class="titre text-custom"><?= utf8_encode($data[0]['TITRE']) ?></h1>
+        <h1 class="titre text-custom"><?= $data[0]['TITRE'] ?></h1>
+        
         <div class="row pt-3 border-top">
             <div class="ml-2">
                 <img style="border-radius: 10px" src="<?= $data[0]['IMAGE'] ?>" alt="image_recette" width="420"
@@ -82,6 +84,20 @@
                 <p><?= $data[0]['RESUME'] ?></p>
             </div>
         </div>
+        <div class="row">
+                    <div class="col-10">
+                    </div>
+                    <div classs="col-1">
+                        <a class="btn btn-danger" href="mailto:?subject=Viens%20voir%20cette%20recette%20!&body=Salut,%0D%0ARegarde%20cette%20magnifique%20recette%20:%20recettes_programmeur.dev/views.php?id=<?=$id?>">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="col-1">
+                        <a class="btn btn-danger" href="convertPdf.php?id=<?=$_GET['id'] ?>">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                    </div>
+                </div>
         <div class="row centerded mt-2" style="font-size: 1.4em">
             <div class="col-2 border-right">
                 <span><i class="text-custom2 fas fa-stopwatch"></i> <?= ($data[0]['TEMPS'] + $data[0]['CUISSON']) ?> min</span>
@@ -108,15 +124,26 @@
         </div>
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 border-right">
-                <h2>Ingrédients <a class="btn btn-danger" href="views.php?id=<?= $id ?>&course=true"><i
-                                class="fas fa-shopping-cart"></i></a></h2>
+                <h2>Ingrédients <?php
+                    if (isset($_SESSION['id']))
+                        echo
+                    "
+<a class=\"btn btn-danger\" href=\"views.php?id=$id&course=true\">
+<i class=\"fas fa-shopping-cart\"></i></a>";
+                    ?>
+                </h2>
                 <div>
                     <ul>
-                        <?php
-                        foreach ($data2 as $etape) {
-                            ?>
-                            <li><?= $etape['QTE_UNITE'] . " de " . $etape['NOMINGREDIENT'] ?></li>
+<?php
 
+foreach ($data2 as $etape) {
+    
+    if ($etape['QTE_UNITE'] != '')
+        echo '<li>' . $etape["QTE_UNITE"] . ' de ' . $etape['NOMINGREDIENT'] . '</li>';
+    else
+        echo '<li>' . $etape['NOMINGREDIENT'] . '</li>';
+
+    ?>
 
                             <?php
                         }
