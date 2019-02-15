@@ -1,9 +1,25 @@
+/*Reglès globales*/
 *{
     box-sizing: border-box;
 }
 body{
     font-family: 'Bitter', serif;
+    background-color: #a5a6a5;
 }
+article > h2{
+    text-align: center;
+}
+body{
+    box-sizing: border-box;
+}
+h2{
+    text-align: center;
+    color: #9ace02;
+}
+
+
+
+/* Classes css réutilisables (pour gérer des cas larges comme couleur, titre ...) */
 .bg-custom{
     background-color: #fdffff;
 }
@@ -31,10 +47,19 @@ body{
 .p-custom{
     padding: 10px 40px 10px 40px;
 }
-
-body{
-    background-color: #a5a6a5;
+.txt-none{
+    text-align: start ;
 }
+.txt-center{
+    text-align: center;
+}
+
+
+
+
+
+/* Reglès pour modifier ou gérer Bootsrap */
+
 .titre{
     display: flex;
     flex-direction: column;
@@ -47,12 +72,7 @@ body{
 {
     width: 500px;
 }
-article > h2{
-    text-align: center;
-}
-body{
-    box-sizing: border-box;
-}
+
 .centerded{
     display: flex;
     align-items: baseline;
@@ -63,7 +83,6 @@ body{
     align-items: baseline;
     justify-content: center;
 }
-
 
 @media screen and (min-width: 1024px) {
     .myNewDivHeight{
@@ -92,16 +111,7 @@ body{
 .navbar-nav>.active{
     text-decoration: underline;
 }
-h2{
-    text-align: center;
-    color: #9ace02;
-}
-.txt-none{
-    text-align: start ;
-}
-.txt-center{
-    text-align: center;
-}
+
 .space-btwn{
     display: flex;
     justify-content: space-between;
@@ -114,7 +124,6 @@ h2{
     border-bot-left-radius: 10px;
     border-bot-right-radius: 10px ;
 }
-
 .pagination > li > a >.active{
     background: #9ace02;
 }
